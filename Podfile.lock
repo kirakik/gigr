@@ -1,0 +1,43 @@
+PODS:
+  - Alamofire (3.2.1)
+  - Bolts (1.6.0):
+    - Bolts/AppLinks (= 1.6.0)
+    - Bolts/Tasks (= 1.6.0)
+  - Bolts/AppLinks (1.6.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.6.0)
+  - BWWalkthrough (1.1.0)
+  - DZNEmptyDataSet (1.7.3)
+  - FBSDKCoreKit (4.10.1):
+    - Bolts (~> 1.5)
+  - FBSDKLoginKit (4.10.1):
+    - FBSDKCoreKit
+  - Firebase (2.5.1)
+  - IQKeyboardManagerSwift (4.0.0)
+  - pop (1.0.9)
+  - SwiftSpinner (0.9.5)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - BWWalkthrough
+  - DZNEmptyDataSet
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - Firebase (>= 2.5.0)
+  - IQKeyboardManagerSwift
+  - pop (~> 1.0)
+  - SwiftSpinner
+
+SPEC CHECKSUMS:
+  Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
+  BWWalkthrough: 0c27ad2773a25c8f4fb9004bc7d6685deb35fecc
+  DZNEmptyDataSet: dd7cca17c1d07dfa78956859b1e70a52505678ef
+  FBSDKCoreKit: d2aaed5e9ab7d8d6301c533376a1fbff1cf3deb5
+  FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
+  Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  IQKeyboardManagerSwift: ede2a27b4e1ce053d03073b9c7fa439322f5e405
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  SwiftSpinner: c6585a0ae5c67eb33e737695cce88f0262008cce
+
+COCOAPODS: 0.39.0
