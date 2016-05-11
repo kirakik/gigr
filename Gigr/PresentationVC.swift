@@ -10,7 +10,7 @@ import UIKit
 
 class PresentationVC: UIPresentationController {
   
-  //PROPERTIES
+  /** PROPERTIES **/
   lazy var dimmingView: UIView = {
     let myView = UIView(frame: self.containerView!.bounds)
     myView.backgroundColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 102/255.0, alpha: 0.2)
@@ -18,7 +18,7 @@ class PresentationVC: UIPresentationController {
     return myView
   }()
   
-  //METHODS
+  /** FUNCTIONS **/
   override func presentationTransitionWillBegin() {
     guard
       let containerView = containerView,

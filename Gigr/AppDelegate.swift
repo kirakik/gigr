@@ -66,6 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func setUpSegmentedControls() {
     let attr = NSDictionary(object: UIFont(name: "LemonMilk", size: 12.0)!, forKey: NSFontAttributeName)
     UISegmentedControl.appearance().setTitleTextAttributes(attr as? [NSObject : AnyObject] , forState: .Normal)
+    UISegmentedControl.appearance().layer.borderColor = UIColor.lightGrayColor().CGColor
+    UISegmentedControl.appearance().layer.borderWidth = 1.5
   }
   
   func setUpDynamicShortcuts(application: UIApplication) {

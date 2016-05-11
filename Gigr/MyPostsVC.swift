@@ -12,14 +12,14 @@ import DZNEmptyDataSet
 
 class MyPostsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var collectionView: UICollectionView!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var myPosts = [Gig]()
   var ref = ""
   
-  //VIEW METHODS
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
     collectionView.dataSource = self
@@ -41,7 +41,7 @@ class MyPostsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     populateCurrentUserPosts()
   }
   
-  //COLLECTION VIEW METHODS
+  /** TABLE VIEW PROTOCOL FUNCTIONS **/
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
     return 1
   }
@@ -70,7 +70,7 @@ class MyPostsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     return CGSizeMake(90, 90)
   }
 
-  //SEGUES
+  /** SEGUE FUNCTION **/
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showMyPost" {
       if let detailVC = segue.destinationViewController as? MyPostDetailVC {
@@ -86,18 +86,20 @@ class MyPostsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
   }
   
-  //FIREBASE METHODS
+  /** FIREBASE FUNCTIONS **/
   func populateCurrentUserPosts() {
     if let currentUserPosts = DataService.ds.ref_user_current.childByAppendingPath("posts") {
       currentUserPosts.observeSingleEventOfType(.Value, withBlock: { snapshot in
         if let snaps = snapshot.children.allObjects as? [FDataSnapshot] {
           self.myPosts = []
+          
           for snap in snaps {
             let numberOfUserPosts = snaps.count
             let currentUserSnaps = snap.key
             if let posts = DataService.ds.ref_gig_posts {
               posts.observeEventType(.Value, withBlock: { snapshot in
                 if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+                  
                   for snapPost in snapshots {
                     if let firebaseSnaps = snapPost.key {
                       if currentUserSnaps == firebaseSnaps {
@@ -116,6 +118,7 @@ class MyPostsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
                       }
                     }
                   }
+                  
                 }
                 self.collectionView.reloadData()
               }, withCancelBlock: { error in
@@ -124,6 +127,7 @@ class MyPostsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
               
             }
           }
+          
         }
       }, withCancelBlock: { error in
         print(error.debugDescription)
@@ -145,7 +149,7 @@ class MyPostsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDat
     }
   }
   
-  //EMPTY STATE METHODS
+  /** EMPTY STATE FUNCTIONS **/
   func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
     return UIColor.whiteColor()
   }

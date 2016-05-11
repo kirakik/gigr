@@ -10,19 +10,22 @@ import UIKit
 
 class AgreementsVC: UIViewController, UITextViewDelegate {
   
-  
+  /** IB OUTLETS **/
   @IBOutlet weak var segmentedControl: UISegmentedControl!
   @IBOutlet weak var privacyTV: UITextView!
   @IBOutlet weak var termsTV: UITextView!
 
+  /** FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
     segmentedControl.selectedSegmentIndex = 0
-    segmentedControl.layer.borderColor = UIColor.lightGrayColor().CGColor
-    segmentedControl.layer.borderWidth = 1.5
+//    segmentedControl.layer.borderColor = UIColor.lightGrayColor().CGColor
+//    segmentedControl.layer.borderWidth = 1.5
   }
-
+  
+  /** IB ACTIONS **/
   @IBAction func segmentSelected(sender: AnyObject) {
+    
     switch segmentedControl.selectedSegmentIndex {
     case 0:
       privacyTV.hidden = true
@@ -36,12 +39,9 @@ class AgreementsVC: UIViewController, UITextViewDelegate {
     }
 
   }
+  
   @IBAction func dismissBtnPressed(sender: AnyObject) {
     dismissViewControllerAnimated(true, completion: nil)
   }
-  
-//  func attributedTextTerms() -> NSAttributedString {
-//    let string = ""
-//  }
   
 }

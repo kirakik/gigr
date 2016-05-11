@@ -8,6 +8,7 @@
 
 import UIKit
 
+/** CLASS EXTENSIONS **/
 extension UIViewController: GooglePlacesAutocompleteDelegate {
   public func placeSelected(place: Place) {
     
@@ -22,11 +23,11 @@ extension UIViewController: GooglePlacesAutocompleteDelegate {
 
 class FilterVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
   
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var locationField: UITextField!
   @IBOutlet weak var categoryField: UITextField!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   let kTopOffset: CGFloat = 50.0
   var categoriesArray = [String]()
   var pickerView = UIPickerView()
@@ -40,7 +41,7 @@ class FilterVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
   var dismissViewUp: CGRect?
   var dismissViewDown: CGRect?
   
-  //VIEW METHODS
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
     let tapExit = UITapGestureRecognizer(target: self, action: #selector(FilterVC.handleTap(_:)))
@@ -66,7 +67,7 @@ class FilterVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
     self.pickerView.selectRow(row, inComponent: 0, animated: true)
   }
   
-  //GPA METHODS
+  /** GPA FUNCTIONS **/
   func textFieldDidBeginEditing(textField: UITextField) {
     presentViewController(gpaViewController, animated: true, completion: nil)
   }
@@ -80,7 +81,7 @@ class FilterVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  //PICKER VIEW METHODS
+  /** PICKER FUNCTIONS **/
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
     return 1
   }
@@ -99,6 +100,7 @@ class FilterVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
     NSUserDefaults.standardUserDefaults().setInteger(row, forKey: "picker")
   }
 
+  /** IB ACTIONS **/
   @IBAction func saveFilters(sender: MaterialButton) {
     NSUserDefaults.standardUserDefaults().setObject(categoryField.text, forKey: "category")
     NSUserDefaults.standardUserDefaults().setObject(locationField.text, forKey: "location")
@@ -108,7 +110,7 @@ class FilterVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  //POPOVER METHODS
+  /** POPOVER FUNCTIONS **/
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     self.commonInit()
@@ -148,7 +150,7 @@ class FilterVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
     }
   }
   
-  //TAP GESTURE RECOGNIZER METHOD
+  /** TAP GESTURE RECOGNIZER FUNCTIONS **/
   func handleTap(gestureRecognizer: UITapGestureRecognizer) {
     let locationInView: CGPoint = gestureRecognizer.locationInView(self.view)
     if CGRectContainsPoint(self.dismissViewUp!, locationInView) {
@@ -162,7 +164,7 @@ class FilterVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, 
   
 }
 
-// DELEGATES
+/** DELEGATES **/
 protocol FilterVCDelegate: class {
   func saveFilters(sender: FilterVC, city: String, category: String)
 }

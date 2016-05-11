@@ -11,7 +11,7 @@ import pop
 
 class AnimationEngine {
   
-  //CLASS PROPERTIES
+  /** CLASS PROPERTIES **/
   class var offScreenTopPosition: CGPoint {
     return CGPointMake(UIScreen.mainScreen().bounds.height, CGRectGetMidX(UIScreen.mainScreen().bounds))
   }
@@ -24,11 +24,11 @@ class AnimationEngine {
     return CGPointMake(CGRectGetMidX(UIScreen.mainScreen().bounds), CGRectGetMidX(UIScreen.mainScreen().bounds))
   }
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var originalConstants = [CGFloat]()
   var constraints: [NSLayoutConstraint]!
   
-  //INITIALIZERS
+  /** INITIALIZERS **/
   init(constraints: [NSLayoutConstraint]) {
     for con in constraints {
       originalConstants.append(con.constant)
@@ -37,7 +37,7 @@ class AnimationEngine {
     self.constraints = constraints
   }
   
-  //METHODS
+  /** FUNCTIONS **/
   func animateOnScreen(delay: Int?) {
     let time = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(delay!) * Double(NSEC_PER_SEC)))
     

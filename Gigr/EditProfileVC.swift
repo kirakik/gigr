@@ -13,7 +13,7 @@ import SwiftSpinner
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet weak var userImg: UIImageView!
   @IBOutlet weak var fullNameField: UITextField!
@@ -37,7 +37,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
   @IBOutlet weak var registerRequiredConstraint: NSLayoutConstraint!
   @IBOutlet weak var loginRequiredConstraint: NSLayoutConstraint!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var imageSelected = false
   var imagePicker: UIImagePickerController!
   var currentUserImage = ""
@@ -56,7 +56,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     placeType: .Cities
   )  
   
-  //VIEW METHODS
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "My profile"
@@ -67,8 +67,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     gpaViewController.placeDelegate = self
     userImg.clipsToBounds = true
     
-    segmentedControl.layer.borderColor = UIColor.lightGrayColor().CGColor
-    segmentedControl.layer.borderWidth = 1.5
+//    segmentedControl.layer.borderColor = UIColor.lightGrayColor().CGColor
+//    segmentedControl.layer.borderWidth = 1.5
     
     pickerView.delegate = self
     pickerView.dataSource = self
@@ -83,18 +83,21 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     super.viewWillAppear(animated)
     userImg.layer.cornerRadius = userImg.frame.size.width / 2
     userImg.clipsToBounds = true
+    
     hideKeyboardWhenTappedAround()
     retrieveUserInfo()
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+    
     if imageSelected == false {
       retrieveUserImg()
     }
+    
   }
   
-  //PICKER VIEW METHODS
+  /** PICKER VIEW PROTOCOL FUNCTIONS **/
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
     return 1
   }
@@ -112,7 +115,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     categoryField.text = pickerSelection
   }
   
-  //ACTIONS
+  /** IB ACTIONS **/
   @IBAction func selectedSegment(sender: UISegmentedControl) {
     switch segmentedControl.selectedSegmentIndex {
     case 0:
@@ -178,11 +181,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
   @IBAction func logoutBtnPressed(sender: AnyObject) {
     DataService.ds.ref_base.unauth()
     NSUserDefaults.standardUserDefaults().setValue(nil, forKey: key_uid)
-//    self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
     let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC")
     UIApplication.sharedApplication().keyWindow?.rootViewController = loginViewController
     SwiftSpinner.showWithDuration(1, title: "Logging you out...")
-//    SwiftSpinner.showWithDuration(2, title: "Logged out successfully", animated: false)
   }
     
   @IBAction func selectImage(sender: UIButton) {
@@ -219,7 +220,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     self.deleteAccountAlert()
   }
   
-  //RETRIEVING FROM FIREBASE
+  /** FUNCTIONS TO RETRIEVE INFO FROM FIREBASE **/
   func retrieveUserImg() {
     if currentUserImage != "" {
       var img: UIImage?
@@ -240,6 +241,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
   func retrieveUserInfo() {
     DataService.ds.ref_user_current.observeSingleEventOfType(.Value, withBlock: { snapshot in
       if snapshot.value is NSNull {
+        
       } else {
         if let currentUserEmail = snapshot.value.objectForKey("email") as? String {
           if currentUserEmail != "" {
@@ -248,6 +250,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             self.currentUserEmail = ""
           }
         }
+        
         if let currentUserCategory = snapshot.value.objectForKey("category") as? String {
           if currentUserCategory != "" {
             self.categoryField.text = currentUserCategory
@@ -325,6 +328,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         } else {
           self.linkedinAccount.text = "http://linkedin.com/in/"
         }
+        
       }
     }, withCancelBlock: { error in
       print(error.description)
@@ -351,11 +355,15 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     })
   }
   
-  //SAVING TO FIREBASE
+  /** FUNCTIONS POSTING TO FIREBASE **/
   func postToFirebase(imgUrl: String?) {
+    
     SwiftSpinner.showWithDuration(1, title: "Saving...")
+    
     var user: Dictionary<String, String>
+    
     if selectedUserType != "Gig Poster" {
+      
       user = [
         "userType": selectedUserType,
         "name": fullNameField.text!,
@@ -367,12 +375,15 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         "availabilities": availabilitiesField.text!,
         "linkedin": linkedinAccount.text!
       ]
+      
     } else {
+      
       user = [
         "userType": selectedUserType,
         "name": fullNameField.text!,
         "city": cityField.text!,
       ]
+      
     }
         
     if imgUrl != nil {
@@ -388,6 +399,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     DataService.ds.ref_user_current.updateChildValues(user)
     
     if self.selectedUserType != "Gig Poster" {
+      
       var userCat: Dictionary<String, String> = [
         "name": fullNameField.text!,
         "email": currentUserEmail,
@@ -408,7 +420,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
           userCat["userImg"] = "https://imagizer.imageshack.us/v2/376x376q90/924/DmsKSf.jpg"
         }
       }
-
       
       if let category = categoryField.text {
         switch category {
@@ -497,33 +508,43 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
       
       NSUserDefaults.standardUserDefaults().setObject("Show All Categories", forKey: "category")
       NSUserDefaults.standardUserDefaults().setObject(self.cityField.text, forKey: "location")
+      
       postToFirebase(nil)
+      
     }
+    
     if self.navigationController != nil {
       self.navigationController?.popViewControllerAnimated(true)
     } else {
       self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
   }
   
   func updateUserInCategory(category: String, userInfo: Dictionary<String, String>) {
     DataService.ds.ref_users_cat.childByAppendingPath(category).childByAppendingPath(currentUserRef).updateChildValues(userInfo)
   }
   
-  //DELETING FROM FIREBASE
-  
+  /** FUNCTIONS DELETING FROM FIREBASE **/
   func deleteAccount(email: String, pwd: String) {
     DataService.ds.ref_base.removeUser(email, password: pwd, withCompletionBlock: { error in
+      
       if error != nil {
         print(error.debugDescription)
+        
         SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
           SwiftSpinner.hide()
-          }, subtitle: "Please check your email and password")
+        }, subtitle: "Please check your email and password")
+        
       } else {
+        
         DataService.ds.ref_user_current.childByAppendingPath("posts").observeEventType(.Value, withBlock: { snapshot in
           if snapshot.value is NSNull {
+
           } else {
+            
             if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+              
               for snap in snapshots {
                 if let posts = DataService.ds.ref_gig_posts.childByAppendingPath(snap.key) {
                   posts.removeValue()
@@ -558,13 +579,18 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             }
           }
         })
+        
         DataService.ds.ref_user_current.removeValue()
         DataService.ds.ref_base.unauth()
+        
         NSUserDefaults.standardUserDefaults().setValue(nil, forKey: key_uid)
+        
         self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        
         if let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC") as? LoginVC {
           UIApplication.sharedApplication().keyWindow?.rootViewController = loginViewController
         }
+        
       }
     })
   }
@@ -573,30 +599,44 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     var emailInput: UITextField?
     var passwordInput: UITextField?
     let textEntryPrompt = UIAlertController(title: "Enter your password and email", message: "Please enter your password and email to confirm", preferredStyle: .Alert)
+    
     textEntryPrompt.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+      
       textField.placeholder = "Email"
       textField.autocorrectionType = .No
       textField.keyboardType = .EmailAddress
       emailInput = textField
+      
     })
+    
     textEntryPrompt.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+      
       textField.placeholder = "Password"
       textField.secureTextEntry = true
       textField.autocorrectionType = .No
       passwordInput = textField
+      
     })
+    
     let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
     let okAction = UIAlertAction(title: "OK", style: .Default, handler: { action in
+      
       if let email = emailInput!.text where email != "", let password = passwordInput!.text where password != "" {
         self.deleteAccount(email, pwd: password)
+        
       } else {
+        
         SwiftSpinner.showWithDuration(2, title: "Empty Field(s)", animated: false).addTapHandler({
           SwiftSpinner.hide()
           }, subtitle: "Password and email required")
+        
       }
+      
     })
+    
     textEntryPrompt.addAction(cancelAction)
     textEntryPrompt.addAction(okAction)
+    
     presentViewController(textEntryPrompt, animated: true, completion: nil)
   }
   
@@ -612,7 +652,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
   }
   
-  //GPA METHOD
+  /** GPA FUNCTIONS **/
   override func placeSelected(place: Place) {
     super.placeSelected(place)
     selectedCity = place.description
@@ -622,11 +662,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  //TEXT FIELD AND TEXT VIEW SETTINGS
   func textFieldDidBeginEditing(textField: UITextField) {
     presentViewController(gpaViewController, animated: true, completion: nil)
   }
   
+  /** TEXT VIEW FUNCTIONS **/
   func textViewDidBeginEditing(textView: UITextView) {
     if textView.text == "e.g. Needs to be available 3 nights a week and have experience" {
       textView.text = ""
@@ -642,14 +682,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
       textView.textColor = UIColor.darkGrayColor()
     }
   }
-    
-//  func checkMaxLength(textView: UITextView!, maxLength: Int) {
-//    if textView.text.characters.count > maxLength {
-//      showErrorAlert("Max \(maxLength) characters", msg: "Your description is \(textView.text.characters.count) characters")
-//    }
-//  }
   
-  //IMAGE PICKER
+  /** IMAGE PICKER FUNCTION **/
   func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage,
     editingInfo: [String : AnyObject]?) {
     imagePicker.dismissViewControllerAnimated(true, completion: nil)
@@ -657,7 +691,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     imageSelected = true
   }
   
-  //OTHER METHODS
+  /** OTHER FUNCTIONS **/
   func adjustToPresentingVC() {
     let n: Int! = self.navigationController?.viewControllers.count
     let presentingVC = self.navigationController?.viewControllers[n-2]

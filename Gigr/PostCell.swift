@@ -12,7 +12,7 @@ import Alamofire
 
 class PostCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate {
     
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var userImg: UIImageView!
   @IBOutlet weak var userName: UILabel!
   @IBOutlet weak var gigTitle: UILabel!
@@ -32,7 +32,7 @@ class PostCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate {
   @IBOutlet weak var editButton: MaterialButton!
   @IBOutlet weak var savePostButton: MaterialButton!
 
-  //PROPERTIES
+  /** PROPERTIES **/
   var gigPost: Gig!
   var request: Request?
   var appliedRef: Firebase!
@@ -40,7 +40,7 @@ class PostCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate {
   var currentPostCategory = ""
   var postKey = ""
   
-  //METHODS
+  /** FUNCTIONS **/
   override func awakeFromNib() {
     super.awakeFromNib()
     editTitle.delegate = self
@@ -104,7 +104,7 @@ class PostCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate {
     
     checkIfUserApplied()
     let postRef = gigPost.gigKey
-    checkIfUserIsPostAuthor(postRef)
+    checkIfCurrentUserIsPostAuthor(postRef)
     getCurrentPostCat(postKey)
   }
   
@@ -127,7 +127,77 @@ class PostCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate {
   func updatePostInCategory(category: String, ref: String, post: Dictionary<String, String>) {
     DataService.ds.ref_posts_cat.childByAppendingPath(category).childByAppendingPath(ref).updateChildValues(post)
   }
-
+  
+  func checkIfUserApplied() {
+    appliedRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      if snapshot.value is NSNull {
+        // We haven't applied to this gig
+        self.applyToGig.setTitle("I'M INTERESTED", forState: UIControlState.Normal)
+        self.applyToGig.backgroundColor = purpleButtonColor
+      } else {
+        self.applyToGig.setTitle("YOU APPLIED", forState: UIControlState.Normal)
+        self.applyToGig.backgroundColor = greenButtonColor
+      }
+    }, withCancelBlock: { error in
+      print(error.debugDescription)
+    })
+  }
+  
+  func checkIfCurrentUserIsPostAuthor(postRef: String) {
+    DataService.ds.ref_gig_posts.childByAppendingPath(postRef).observeSingleEventOfType(FEventType.Value, withBlock: { snapshot in
+      if snapshot.value is NSNull {
+      } else {
+        if let userRef = snapshot.value.objectForKey("userRef") as? String {
+          self.userRef = userRef
+          if userRef == currentUserRef {
+            self.applyToGig.hidden = true
+            self.messageButton.hidden = true
+            self.flagButton.hidden = true
+            self.editButton.hidden = false
+            self.deleteButton.hidden = false
+            if let editRef = DataService.ds.ref_gig_posts.childByAppendingPath(postRef).childByAppendingPath("inEditMode") {
+              editRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                if snapshot.value is NSNull {
+                  self.editTitle.hidden = true
+                  self.editLocation.hidden = true
+                  self.editDescription.hidden = true
+                  self.editRate.hidden = true
+                  self.editType.hidden = true
+                  self.savePostButton.hidden = true
+                } else {
+                  self.gigTitle.text = ""
+                  self.gigDescription.text = ""
+                  self.gigRate.text = ""
+                  self.gigType.text = ""
+                  self.editTitle.hidden = false
+                  self.editLocation.hidden = true
+                  self.editDescription.hidden = false
+                  self.editRate.hidden = false
+                  self.editType.hidden = false
+                  self.editButton.hidden = true
+                  self.deleteButton.hidden = true
+                  self.savePostButton.hidden = false
+                }
+              }, withCancelBlock: { error in
+                print(error.debugDescription)
+              })
+            }
+          } else {
+            self.applyToGig.hidden = false
+            self.messageButton.hidden = false
+            self.flagButton.hidden = false
+            self.editButton.hidden = true
+            self.deleteButton.hidden = true
+            self.savePostButton.hidden = true
+          }
+        }
+      }
+    }, withCancelBlock: { error in
+      print(error.description)
+    })
+  }
+  
+  /** SAVE CHANGES TO POST **/
   func textFieldDidEndEditing(textField: UITextField) {
     if let ref = gigPost.gigKey {
       if let title = editTitle.text, let location = editLocation.text, let rate = editRate.text, let type = editType.text {
@@ -213,75 +283,6 @@ class PostCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate {
         }
       }
     }
-  }
-  
-  func checkIfUserApplied() {
-    appliedRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-      if snapshot.value is NSNull {
-        // We haven't applied to this gig
-        self.applyToGig.setTitle("I'M INTERESTED", forState: UIControlState.Normal)
-        self.applyToGig.backgroundColor = purpleButtonColor
-      } else {
-        self.applyToGig.setTitle("YOU APPLIED", forState: UIControlState.Normal)
-        self.applyToGig.backgroundColor = greenButtonColor
-      }
-    }, withCancelBlock: { error in
-      print(error.debugDescription)
-    })
-  }
-  
-  func checkIfUserIsPostAuthor(postRef: String) {
-    DataService.ds.ref_gig_posts.childByAppendingPath(postRef).observeSingleEventOfType(FEventType.Value, withBlock: { snapshot in
-      if snapshot.value is NSNull {
-      } else {
-        if let userRef = snapshot.value.objectForKey("userRef") as? String {
-          self.userRef = userRef
-          if userRef == currentUserRef {
-            self.applyToGig.hidden = true
-            self.messageButton.hidden = true
-            self.flagButton.hidden = true
-            self.editButton.hidden = false
-            self.deleteButton.hidden = false
-            if let editRef = DataService.ds.ref_gig_posts.childByAppendingPath(postRef).childByAppendingPath("inEditMode") {
-              editRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                if snapshot.value is NSNull {
-                  self.editTitle.hidden = true
-                  self.editLocation.hidden = true
-                  self.editDescription.hidden = true
-                  self.editRate.hidden = true
-                  self.editType.hidden = true
-                  self.savePostButton.hidden = true
-                } else {
-                  self.gigTitle.text = ""
-                  self.gigDescription.text = ""
-                  self.gigRate.text = ""
-                  self.gigType.text = ""
-                  self.editTitle.hidden = false
-                  self.editLocation.hidden = true
-                  self.editDescription.hidden = false
-                  self.editRate.hidden = false
-                  self.editType.hidden = false
-                  self.editButton.hidden = true
-                  self.deleteButton.hidden = true
-                  self.savePostButton.hidden = false
-                }
-              }, withCancelBlock: { error in
-                print(error.debugDescription)
-              })
-            }
-          } else {
-            self.applyToGig.hidden = false
-            self.messageButton.hidden = false
-            self.flagButton.hidden = false
-            self.editButton.hidden = true
-            self.deleteButton.hidden = true
-            self.savePostButton.hidden = true
-          }
-        }
-      }
-    }, withCancelBlock: { error in
-      print(error.description)
-    })
   }
   
 }

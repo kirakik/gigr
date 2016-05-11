@@ -11,7 +11,7 @@ import Firebase
 
 class GigHunter {
 
-  //PROPERTIES
+  /** PROPERTIES **/
   private(set) var userName: String!
   private(set) var userCategory: String!
   private(set) var userLocation: String!
@@ -23,7 +23,7 @@ class GigHunter {
   private(set) var userSkills: String!
   private(set) var userKey: String!
 
-  //INITIALIZERS
+  /** INITIALIZERS **/
   init(userName: String, userCategory: String, userLocation: String, userTagline: String, userImg: String, userShortDesc: String) {
     self.userName = userName
     self.userLocation = userLocation

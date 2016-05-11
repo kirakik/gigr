@@ -12,7 +12,7 @@ import Firebase
 
 class GigHunterCell: UITableViewCell {
   
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var userName: UILabel!
   @IBOutlet weak var userImg: UIImageView!
   @IBOutlet weak var userTagline: UILabel!
@@ -21,13 +21,12 @@ class GigHunterCell: UITableViewCell {
   @IBOutlet weak var contactButton: MaterialButton!
   @IBOutlet weak var flagUserButton: MaterialButton!
   
-  @IBOutlet weak var contentViewGH: UIView!
-  //PROPERTIES
+  /** PROPERTIES **/
   var gigHunter: GigHunter!
   var request: Request?
   var favoritedRef: Firebase!
   
-  //METHODS
+  /** FUNCTIONS **/
   override func drawRect(rect: CGRect) {
     userImg.layer.cornerRadius = userImg.frame.size.width / 2
     userImg.clipsToBounds = true
@@ -57,17 +56,23 @@ class GigHunterCell: UITableViewCell {
       self.userImg.image = img
     }
     
+    checkIfUserWasFavorited()
+    checkIfUserIsCurrentUser()
+  }
+  
+  func checkIfUserWasFavorited() {
     favoritedRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       if snapshot.value is NSNull {
-        // We haven't liked this person
         self.favoriteButton.setImage(UIImage(named: "heart-empty"), forState: .Normal)
       } else {
         self.favoriteButton.setImage(UIImage(named: "heart-full"), forState: .Normal)
       }
-    }, withCancelBlock: { error in
-      print(error.debugDescription)
+      }, withCancelBlock: { error in
+        print(error.debugDescription)
     })
-    
+  }
+  
+  func checkIfUserIsCurrentUser() {
     if self.gigHunter.userKey == currentUserRef {
       self.favoriteButton.hidden = true
       self.contactButton.hidden = true

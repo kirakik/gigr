@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-// PROPERTIES
+/** PROPERTIES **/
 let grayColor = UIColor(red: 243/255.0, green: 243/255.0, blue: 243/255.0, alpha: 1)
 let myLightGrayColor = UIColor(red: 193/255.0, green: 193/255.0, blue: 201/255.0, alpha: 0.5)
 let veryLightGrayColor = UIColor(red: 193/255.0, green: 193/255.0, blue: 201/255.0, alpha: 1)
@@ -34,19 +34,19 @@ let salon = "Salon"
 let retail = "Retail"
 let other = "Other"
 
-// KEYS
+/** KEYS **/
 let key_uid = "uid"
 let currentUserUID = NSUserDefaults.standardUserDefaults().valueForKey(key_uid) as? String
 let currentUserRef = "\(currentUserUID!)"
 
-// SEGUES
+/** SEGUES **/
 let segue_login = "LoginIdentifier"
 let segue_registered = "RegisteredSegue"
 
-// STATUS CODES
+/** STATUS CODES **/
 let status_account_nonexist = -8
 
-// EXTENSIONS
+/** EXTENSIONS **/
 extension UIViewController {
   func hideKeyboardWhenTappedAround() {
     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))

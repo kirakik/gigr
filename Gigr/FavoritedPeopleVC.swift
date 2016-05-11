@@ -12,11 +12,14 @@ import Alamofire
 import DZNEmptyDataSet
 
 class FavoritedPeopleVC: UIViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-
+  
+  /** IB OUTLETS **/
   @IBOutlet weak var tableView: UITableView!
 
+  /** PROPERTIES **/
   var favoritedPeople = [GigHunter]()
 
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "Favorites"
@@ -26,9 +29,11 @@ class FavoritedPeopleVC: UIViewController, UITableViewDelegate, UITableViewDataS
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
+    
     populateFavoritedPeople()
   }
   
+  /** TABLE VIEW PROTOCOL FUNCTIONS **/
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
@@ -56,6 +61,7 @@ class FavoritedPeopleVC: UIViewController, UITableViewDelegate, UITableViewDataS
     performSegueWithIdentifier("showUserProfile", sender: user)
   }
   
+  /** SEGUE FUNCTION **/
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showUserProfile" {
       if let detailVC = segue.destinationViewController as? GigHunterProfileVC {
@@ -66,7 +72,7 @@ class FavoritedPeopleVC: UIViewController, UITableViewDelegate, UITableViewDataS
     }
   }
 
-
+  /** FIREBASE FUNCTIONS **/
   func populateFavoritedPeople() {
     DataService.ds.ref_user_current.childByAppendingPath("favoritedWho").observeEventType(.Value, withBlock: { snapshot in
       self.favoritedPeople = []
@@ -98,7 +104,7 @@ class FavoritedPeopleVC: UIViewController, UITableViewDelegate, UITableViewDataS
     })
   }
   
-  //EMPTY STATE METHODS
+  /** EMPTY STATE FUNCTIONS **/
   func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
     return UIColor.whiteColor()
   }

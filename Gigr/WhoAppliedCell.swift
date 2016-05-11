@@ -12,15 +12,15 @@ import Firebase
 
 class WhoAppliedCell: UITableViewCell {
 
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var userImage: UIImageView!
   @IBOutlet weak var userName: UILabel!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var user: GigHunter!
   var request: Request?
   
-  //METHODS
+  /** FUNCTIONS **/
   override func drawRect(rect: CGRect) {
     userImage.layer.cornerRadius = userImage.frame.size.width / 2
     userImage.clipsToBounds = true
@@ -47,4 +47,5 @@ class WhoAppliedCell: UITableViewCell {
       self.userImage.image = img
     }
   }
+  
 }

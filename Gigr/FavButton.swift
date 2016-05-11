@@ -11,4 +11,5 @@ import UIKit
 class FavButton: UIButton {
 
   var refStr: String?
+  
 }

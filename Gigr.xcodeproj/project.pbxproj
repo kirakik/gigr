@@ -31,7 +31,6 @@
 		3264020D1CA0FC330002DDBD /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 326402091CA0FC330002DDBD /* NotoSans-Regular.ttf */; };
 		326402151CA103A40002DDBD /* lemon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 326402141CA103A40002DDBD /* lemon.ttf */; };
 		326402191CA107E70002DDBD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326402181CA107E70002DDBD /* Constants.swift */; };
-		3264021D1CA10CEE0002DDBD /* WhiteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3264021C1CA10CEE0002DDBD /* WhiteImage.swift */; };
 		3264021F1CA112880002DDBD /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3264021E1CA112880002DDBD /* MaterialTextField.swift */; };
 		327D62F01CC7C5D600C697F4 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327D62EF1CC7C5D600C697F4 /* FilterVC.swift */; };
 		3284C32D1CBB36A600409F6A /* MyPostDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3284C32C1CBB36A600409F6A /* MyPostDetailVC.swift */; };
@@ -90,7 +89,6 @@
 		326402091CA0FC330002DDBD /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.ttf"; sourceTree = "<group>"; };
 		326402141CA103A40002DDBD /* lemon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lemon.ttf; sourceTree = "<group>"; };
 		326402181CA107E70002DDBD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		3264021C1CA10CEE0002DDBD /* WhiteImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteImage.swift; sourceTree = "<group>"; };
 		3264021E1CA112880002DDBD /* MaterialTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
 		327D62EF1CC7C5D600C697F4 /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
 		3284C32C1CBB36A600409F6A /* MyPostDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostDetailVC.swift; sourceTree = "<group>"; };
@@ -226,7 +224,6 @@
 				3228D10E1CA32A4400B6598E /* MaterialTextView.swift */,
 				324E784F1CA6D9BC00AA5EEE /* MaterialButton.swift */,
 				32CB17DB1CBF1606003822E2 /* FavButton.swift */,
-				3264021C1CA10CEE0002DDBD /* WhiteImage.swift */,
 				32D91F7C1CC3F56C0087AAA3 /* FormLabel.swift */,
 			);
 			name = View;
@@ -450,7 +447,6 @@
 				326402191CA107E70002DDBD /* Constants.swift in Sources */,
 				32D375B01CB9D7F3000EE16E /* MyPostsVC.swift in Sources */,
 				32FCCC691CBDE5B300C4178D /* GigHunterProfileVC.swift in Sources */,
-				3264021D1CA10CEE0002DDBD /* WhiteImage.swift in Sources */,
 				3228D10D1CA2F33E00B6598E /* GigHunter.swift in Sources */,
 				32DB66A91CD12EBA00BBB448 /* UserPostsVC.swift in Sources */,
 				327D62F01CC7C5D600C697F4 /* FilterVC.swift in Sources */,

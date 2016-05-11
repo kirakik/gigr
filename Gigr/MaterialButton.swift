@@ -12,6 +12,7 @@ import pop
 @IBDesignable
 class MaterialButton: UIButton {
   
+  /** PROPERTIES **/
   var refStr: String?
   var category: String?
   
@@ -20,7 +21,8 @@ class MaterialButton: UIButton {
       setUpView()
     }
   }
-
+  
+  /** METHODS **/
   override func awakeFromNib() {
     setUpView()
     layer.shadowColor = UIColor(red: shadow_color, green: shadow_color, blue: shadow_color, alpha: 0.5).CGColor

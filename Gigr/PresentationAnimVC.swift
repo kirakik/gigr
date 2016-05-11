@@ -10,17 +10,17 @@ import UIKit
 
 class PresentationAnimVC: NSObject, UIViewControllerAnimatedTransitioning {
   
-  //PROPERTIES
+  /** PROPERTIES **/
   let isPresenting: Bool
   let duration: NSTimeInterval = 0.5
   
-  //INITIALIZERS
+  /** INITIALIZERS **/
   init(isPresenting: Bool) {
     self.isPresenting = isPresenting
     super.init()
   }
   
-  //METHODS
+  /** FUNCTIONS **/
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
     return self.duration
   }

@@ -14,7 +14,7 @@ import SwiftSpinner
 
 class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
   
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var postTitle: UILabel!
   @IBOutlet weak var postLocation: UILabel!
@@ -30,7 +30,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
   @IBOutlet weak var deleteButton: MaterialButton!
   @IBOutlet weak var doneButton: MaterialButton!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var detailPost: Gig?
   var ref = ""
   var refCat = ""
@@ -42,7 +42,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     placeType: .Cities
   )
   
-  //VIEW METHODS
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "Your Gig"
@@ -67,7 +67,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     adjustToEditMode()
   }
 
-  //TABLE VIEW METHODS
+  /** TABLE VIEW PROTOCOL FUNCTIONS **/
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
@@ -95,6 +95,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     performSegueWithIdentifier("showUserProfile", sender: user)
   }
   
+  /** SEGUE FUNCTIONS **/
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showUserProfile" {
       if let detailVC = segue.destinationViewController as? GigHunterProfileVC {
@@ -105,7 +106,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
-  //GPA METHOD
+  /** GPA FUNCTIONS **/
   override func placeSelected(place: Place) {
     super.placeSelected(place)
     selectedCity = place.description
@@ -121,13 +122,14 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
-  //RETRIEVING FROM FIREBASE
+  /** FUNCTIONS TO RETRIEVE FROM FIREBASE **/
   func updatePostData() {
     if let currentPost = DataService.ds.ref_gig_posts.childByAppendingPath(ref) {
       currentPost.observeSingleEventOfType(.Value, withBlock: { snapshot in
         if snapshot.value is NSNull {
           
         } else {
+          
           if let currentPostTitle = snapshot.value.objectForKey("gigTitle") as? String {
             self.postTitle.text = currentPostTitle
             self.editTitle.text = currentPostTitle
@@ -135,6 +137,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.postTitle.text = ""
             self.editTitle.text = ""
           }
+          
           if let currentPostLocation = snapshot.value.objectForKey("gigLocation") as? String {
             self.postLocation.text = currentPostLocation
             self.editLocation.text = currentPostLocation
@@ -142,11 +145,13 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.postLocation.text = ""
             self.editLocation.text = ""
           }
+          
           if let currentPostCategory = snapshot.value.objectForKey("gigCategory") as? String {
             self.currentPostCategory = currentPostCategory
           } else {
             self.currentPostCategory = ""
           }
+          
           if let currentPostDescription = snapshot.value.objectForKey("gigDescription") as? String {
             self.postDesc.text = currentPostDescription
             self.editDesc.text = currentPostDescription
@@ -154,6 +159,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.postDesc.text = ""
             self.editDesc.text = ""
           }
+          
           if let currentPostRate = snapshot.value.objectForKey("gigRate") as? String {
             self.postRate.text = currentPostRate
             self.editRate.text = currentPostRate
@@ -161,6 +167,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.postRate.text = ""
             self.editRate.text = ""
           }
+          
           if let currentPostType = snapshot.value.objectForKey("gigType") as? String {
             self.postType.text = currentPostType
             self.editType.text = currentPostType
@@ -168,6 +175,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.postType.text = ""
             self.editType.text = ""
           }
+          
         }
       }, withCancelBlock: { error in
         print(error.debugDescription)
@@ -179,6 +187,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     if let usersWhoApplied = DataService.ds.ref_gig_posts.childByAppendingPath(ref).childByAppendingPath("whoApplied") {
       usersWhoApplied.observeSingleEventOfType(.Value, withBlock: { snapshot in
         self.peopleWhoApplied = []
+        
         if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
           for snap in snapshots {
             let usersKeys = snap.key
@@ -202,6 +211,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
           }
         }
+        
       }, withCancelBlock: { error in
         print(error.debugDescription)
       })
@@ -246,13 +256,14 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
-  //SAVING TO FIREBASE
+  /** FUNCTIONS TO SAVE TO FIREBASE **/
   func savePostInCategory(category: String, post: Dictionary<String, String>) {
     DataService.ds.ref_posts_cat.childByAppendingPath(category).childByAppendingPath(ref).updateChildValues(post)
   }
   
   func saveToFirebase() {
     if let title = editTitle.text, let location = editLocation.text, let gigDesc = editDesc.text, let rate = editRate.text, let type = editType.text {
+      
       let post: Dictionary<String, String> = [
         "gigTitle": title,
         "gigLocation": location,
@@ -260,7 +271,9 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         "gigRate": rate,
         "gigType": type,
       ]
+      
       DataService.ds.ref_gig_posts.childByAppendingPath(ref).updateChildValues(post)
+      
       switch currentPostCategory {
       case "Hospitality":
         savePostInCategory(hospitality, post: post)
@@ -295,7 +308,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
-  //DELETING FROM FIREBASE
+  /** FUNCTIONS TO DELETE FROM FIREBASE **/
   func deletePostInCategory(category: String) {
     DataService.ds.ref_posts_cat.childByAppendingPath(category).childByAppendingPath(self.ref).removeValue()
   }
@@ -303,15 +316,20 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
   //ACTIONS
   @IBAction func deleteButtonPressed(sender: MaterialButton) {
     if let currentUserPostRef = DataService.ds.ref_user_current.childByAppendingPath("posts").childByAppendingPath(ref) {
+      
       currentUserPostRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        
         if snapshot.value is NSNull {
           // This person is not this post's author
         } else {
           let alert = UIAlertController(title: "Are you sure you want to delete this post?", message: "Deleted posts cannot be recovered", preferredStyle: .ActionSheet)
           let okAction = UIAlertAction(title: "Yes, delete it", style: .Default) { alert in
+            
             SwiftSpinner.showWithDuration(1, title: "Deleting your gig...")
+            
             DataService.ds.ref_gig_posts.childByAppendingPath(self.ref).removeValue()
             DataService.ds.ref_user_current.childByAppendingPath("posts").childByAppendingPath(self.ref).removeValue()
+            
             switch self.currentPostCategory {
             case "Hospitality":
               self.deletePostInCategory(hospitality)
@@ -342,12 +360,15 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             default:
               break
             }
+            
             self.navigationController?.popViewControllerAnimated(true)
           }
+          
           let noAction = UIAlertAction(title: "No, don't delete it", style: .Default) { alert in
           }
           alert.addAction(okAction)
           alert.addAction(noAction)
+          
           self.presentViewController(alert, animated: true, completion: nil)
         }
       }, withCancelBlock: { error in
@@ -387,6 +408,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     if let editModeRef = DataService.ds.ref_gig_posts.childByAppendingPath(ref).childByAppendingPath("inEditMode") {
       editModeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
         if snapshot.value is NSNull {
+          
         } else {
           self.postTitle.hidden = false
           self.postLocation.hidden = false
@@ -412,7 +434,7 @@ class MyPostDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
   }
   
-  //EMPTY STATE METHODS
+  /** EMPTY STATE FUNCTIONS **/
   func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
     return UIColor.whiteColor()
   }

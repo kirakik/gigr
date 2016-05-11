@@ -10,7 +10,7 @@ import UIKit
 
 class MaterialTextField: UITextField {
   
-  //LOGIN TEXT FIELD 
+  /** ADD LINE UNDER LOGIN TEXT FIELDS **/
   override func awakeFromNib() {
     let border = CALayer()
     let width = CGFloat(1.5)

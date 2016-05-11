@@ -11,7 +11,7 @@ import Firebase
 
 class Gig {
     
-  //PROPERTIES
+  /** PROPERTIES **/
   private(set) var userName: String!
   private(set) var userImg: String!
   private(set) var gigCategory: String!
@@ -24,7 +24,7 @@ class Gig {
   private(set) var gigRef: Firebase!
   private(set) var gigRefCat: Firebase!
     
-  //INITIALIZERS
+  /** INITIALIZERS **/
   init(gigCategory: String, gigTitle: String, gigDescription: String, gigRate: String, gigType: String, gigLocation: String) {
     self.gigCategory = gigCategory
     self.gigTitle = gigTitle

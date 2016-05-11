@@ -9,15 +9,15 @@
 import Foundation
 import Firebase
 
-//GLOBAL PROPERTIES
+/** PUBLIC PROPERTIES **/
 let url_base = "https://gigr.firebaseio.com"
 
 class DataService {
     
-  //SINGLETON REFERENCE
+  /** SINGLETON REF **/
   static let ds = DataService()
     
-  //PROPERTIES
+  /** PROPERTIES **/
   private(set) var ref_base = Firebase(url: "\(url_base)")
   private(set) var ref_gig_posts = Firebase(url: "\(url_base)/gigPost")
   private(set) var ref_posts_cat = Firebase(url: "\(url_base)/postsByCategory")
@@ -32,7 +32,7 @@ class DataService {
     return Firebase()
   }
   
-  //METHODS
+  /** FUNCTIONS **/
   func createFirebaseUser(uid: String, user: Dictionary<String, String>) {
     if uid != "" {
       ref_users.childByAppendingPath(uid).setValue(user)

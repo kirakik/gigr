@@ -12,6 +12,7 @@ import DZNEmptyDataSet
 import MessageUI
 import SwiftSpinner
 
+/** CLASS EXTENSIONS **/
 extension UINavigationBar {
   public override func sizeThatFits(size: CGSize) -> CGSize {
     let newSize = CGSizeMake(UIScreen.mainScreen().bounds.width, 44)
@@ -37,7 +38,7 @@ extension FeedGigsVC: FilterVCDelegate {
 
 class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, MFMailComposeViewControllerDelegate {
     
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var segmentedControl: UISegmentedControl!
   @IBOutlet weak var tableViewGigs: UITableView!
   @IBOutlet weak var tableViewGigHunters: UITableView!
@@ -47,29 +48,31 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   @IBOutlet weak var stackViewGigHunters: UIStackView!
   
   
-  //GENERAL PROPERTIES
+  /** PROPERTIES **/
   var pickedCategory: String?
   var selectedCity: String?
   
-  //GIGS PROPERTIES
+  /** GIG PROPERTIES **/
   var gigPosts = [Gig]()
   var appliedRef: Firebase!
   var inSearchModeGigs = false
   var postRef: Firebase!
   var filteredGigPosts = [Gig]()
   
-  //GIG HUNTERS PROPERTIES
+  /** GIG HUNTER PROPERTIES **/
   var gigHunters = [GigHunter]()
   var inSearchModeGigHunters = false
   var filteredGigHunters = [GigHunter]()
   static var profilImgCache = NSCache()
   var userKey: String?
 
-  //VIEW METHODS
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "Gigr"
+    
     segmentedControl.selectedSegmentIndex = 0
+    
     tableViewGigs.delegate = self
     tableViewGigs.dataSource = self
     tableViewGigs.emptyDataSetSource = self
@@ -85,13 +88,14 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     
     tableViewGigHunters.hidden = true
     stackViewGigHunters.hidden = true
+    
     searchBarGigs.returnKeyType = UIReturnKeyType.Done
     searchBarGigHunters.returnKeyType = UIReturnKeyType.Done
     tableViewGigs.showsVerticalScrollIndicator = false
     tableViewGigHunters.showsVerticalScrollIndicator = false
     
-    segmentedControl.layer.borderColor = UIColor.lightGrayColor().CGColor
-    segmentedControl.layer.borderWidth = 1.5
+//    segmentedControl.layer.borderColor = UIColor.lightGrayColor().CGColor
+//    segmentedControl.layer.borderWidth = 1.5
 
     let attributes = [
       NSFontAttributeName: UIFont(name: "LemonMilk", size: 25)!,
@@ -115,19 +119,22 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     
     let pickedCategory = NSUserDefaults.standardUserDefaults().objectForKey("category") as? String
     let selectedCity = NSUserDefaults.standardUserDefaults().objectForKey("location") as? String
+    
     if let pickedCategory = pickedCategory {
       self.pickedCategory = pickedCategory
     }
+    
     if let selectedCity = selectedCity {
       self.selectedCity = selectedCity
     }
+    
     if let location = selectedCity, let category = self.pickedCategory {
       populateGigsTable(location, category: category)
       populateGHTable(location, category: category)
     }
   }
     
-  //TABLE VIEW METHODS
+  /** TABLE VIEW PROTOCOL FUNCTIONS **/
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
@@ -149,6 +156,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     var img: UIImage?
+    
     if tableView == tableViewGigs {
       if let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as? PostCell {
         var post: Gig!
@@ -167,16 +175,19 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         cell.savePostButton.refStr = post.gigKey
         cell.flagButton.refStr = post.gigKey
         
-          if let url = post.userImg {
+        if let url = post.userImg {
           img = FeedGigsVC.profilImgCache.objectForKey(url) as? UIImage
         }
+        
         cell.configureCell(post, img: img)
         return cell
       } else {
         return PostCell()
       }
+      
     } else if tableView == tableViewGigHunters {
       if let cellGH = tableView.dequeueReusableCellWithIdentifier("GigHunterCell") as? GigHunterCell {
+        
         cellGH.request?.cancel()
         var gigHunter: GigHunter!
 
@@ -193,6 +204,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         if let url = gigHunter.userImg {
           img = FeedGigsVC.profilImgCache.objectForKey(url) as? UIImage
         }
+        
         cellGH.configureCell(gigHunter, img: img)
         return cellGH
       } else {
@@ -211,6 +223,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   }
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    
     if tableView == tableViewGigHunters {
       let gigHunter: GigHunter!
       if inSearchModeGigHunters {
@@ -226,9 +239,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         return 155
       }
     }
-//    } else if tableView == tableViewGigs {
-//      return 320
-//    }
+    
     return UITableViewAutomaticDimension
   }
   
@@ -240,19 +251,24 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if tableView == tableViewGigHunters {
       let user: GigHunter!
+      
       if inSearchModeGigHunters {
         user = filteredGigHunters[indexPath.row]
       } else {
         user = gigHunters[indexPath.row]
       }
+      
       performSegueWithIdentifier("showUserProfile", sender: user)
+      
     } else if tableView == tableViewGigs {
       let post: Gig!
+      
       if inSearchModeGigs {
         post = filteredGigPosts[indexPath.row]
       } else {
         post = gigPosts[indexPath.row]
       }
+      
       DataService.ds.ref_gig_posts.childByAppendingPath(post.gigKey).childByAppendingPath("userRef").observeSingleEventOfType(.Value, withBlock: { snapshot in
         if snapshot.value is NSNull {
           
@@ -263,10 +279,11 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
           }
         }
       })
+      
     }
   }
   
-  // SEGUES
+  /** SEGUE FUNCTION **/
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showUserProfile" {
       if let detailVC = segue.destinationViewController as? GigHunterProfileVC {
@@ -279,7 +296,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     }
   }
   
-  //SEARCH METHODS
+  /** SEARCH FUNCTIONS **/
   func searchBarSearchButtonClicked(searchBar: UISearchBar) {
     view.endEditing(true)
   }
@@ -310,14 +327,15 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     }
   }
   
-  //POPOVER METHOD
+  /** POPOVER FUNCTION **/
   func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
     popoverPresentationController.sourceView = self.view
   }
   
-  //RETRIEVING FROM FIREBASE
+  /** FUNCTIONS TO RETRIEVE INFO FROM FIREBASE **/
   func populateGigsTable(location: String, category: String) {
     if category != "Show All Categories" {
+      
       switch category {
       case "Hospitality":
         populatePostsByCategory(hospitality, location: location)
@@ -348,11 +366,14 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
       default:
         break
       }
+      
     } else {
       let posts = DataService.ds.ref_gig_posts
       posts.observeEventType(.Value, withBlock: { snapshot in
+        
         if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
           self.gigPosts = []
+          
           for snap in snapshots {
             if let posts = snap.value as? Dictionary<String, AnyObject> {
               for (gigAttr, value) in posts {
@@ -370,9 +391,9 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
               }
             }
           }
+          
           self.tableViewGigs.reloadData()
         }
-        
       }, withCancelBlock: { error in
         print(error.debugDescription)
       })
@@ -381,6 +402,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   
   func populateGHTable(location: String, category: String) {
     if category != "Show All Categories" {
+      
       switch category {
       case "Hospitality":
         populateUsersByCategory(hospitality, location: location)
@@ -411,14 +433,17 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
       default:
         break
       }
+      
     } else {
       let users = DataService.ds.ref_users
+      
       users.queryOrderedByChild("userType").queryEqualToValue("Gig Hunter").observeEventType(.Value, withBlock: { snapshot in
         if snapshot.value is NSNull {
           
         } else {
           if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
             self.gigHunters = []
+            
             for snap in snapshots {
               if let people = snap.value as? Dictionary<String, AnyObject> {
                 for (userAttr, value) in people {
@@ -436,6 +461,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                 }
               }
             }
+            
           }
         }
       self.tableViewGigHunters.reloadData()
@@ -447,9 +473,11 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   
   func populatePostsByCategory(category: String, location: String) {
     let posts = DataService.ds.ref_posts_cat.childByAppendingPath(category)
+    
     posts.observeEventType(.Value, withBlock: { snapshot in
       if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
         self.gigPosts = []
+        
         for snap in snapshots {
           if let posts = snap.value as? Dictionary<String, AnyObject> {
             for (gigAttr, value) in posts {
@@ -467,6 +495,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             }
           }
         }
+        
       }
       self.tableViewGigs.reloadData()
     }, withCancelBlock: { error in
@@ -476,9 +505,11 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   
   func populateUsersByCategory(category: String, location: String) {
     let users = DataService.ds.ref_users_cat.childByAppendingPath(category)
+    
     users.queryOrderedByChild("name").observeEventType(.Value, withBlock: { snapshot in
       if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
         self.gigHunters = []
+        
         for snap in snapshots {
           if let users = snap.value as? Dictionary<String, AnyObject> {
             for (userAttr, value) in users {
@@ -496,6 +527,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             }
           }
         }
+        
       }
       self.tableViewGigHunters.reloadData()
     }, withCancelBlock: { error in
@@ -503,17 +535,18 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     })
   }
   
+  /** FUNCTION TO DELETE FROM FIREBASE **/
   func deletePostInCategory(category: String, ref: String) {
     DataService.ds.ref_posts_cat.childByAppendingPath(category).childByAppendingPath(ref).removeValue()
   }
   
-  //ACTIONS
-  
+  /** IB ACTIONS **/
   @IBAction func showProfileBtnPresssed(sender: AnyObject) {
     performSegueWithIdentifier("showMyProfile", sender: nil)
   }
   
   @IBAction func selectedSegment(sender: UISegmentedControl) {
+    
     switch segmentedControl.selectedSegmentIndex {
     case 0:
       tableViewGigHunters.hidden = true
@@ -531,6 +564,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
       print("This shouldn't happen")
       break
     }
+    
   }
   
   @IBAction func editButtonPressed(sender: MaterialButton) {
@@ -573,10 +607,14 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         } else {
           let alert = UIAlertController(title: "Are you sure you want to delete this post?", message: "Deleted posts cannot be recovered", preferredStyle: .ActionSheet)
           let okAction = UIAlertAction(title: "Yes, delete it", style: .Default) { alert in
+            
             SwiftSpinner.showWithDuration(1, title: "Deleting your gig...")
+            
             DataService.ds.ref_gig_posts.childByAppendingPath(ref).removeValue()
             DataService.ds.ref_user_current.childByAppendingPath("posts").childByAppendingPath(ref).removeValue()
+            
             if let category = sender.category as String! {
+              
               switch category {
               case "Hospitality":
                 self.deletePostInCategory(hospitality, ref: ref)
@@ -607,13 +645,17 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
               default:
                 break
               }
+              
             }
             self.tableViewGigs.reloadData()
           }
+          
           let noAction = UIAlertAction(title: "No, don't delete it", style: .Default) { alert in
           }
+          
           alert.addAction(okAction)
           alert.addAction(noAction)
+          
           self.presentViewController(alert, animated: true, completion: nil)
         }
       }, withCancelBlock: { error in
@@ -638,6 +680,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   @IBAction func messagePostingUser(sender: MaterialButton!) {
     if let ref = sender.refStr {
       DataService.ds.ref_gig_posts.childByAppendingPath(ref).observeSingleEventOfType(FEventType.Value, withBlock: { snapshot in
+        
         let userEmail = snapshot.value.objectForKey("userEmail") as! String
         let userRelay = "user@gigr.com"
         let emailString = NSString(format: "\(userRelay) <%@>", userEmail) as String
@@ -647,11 +690,13 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         let emailBody = "Hi, "
         
         let mailComposeViewController = self.configuredMailComposeVC(emailRecipient, subject: emailSubject, body: emailBody)
+        
         if MFMailComposeViewController.canSendMail() {
           self.presentViewController(mailComposeViewController, animated: true, completion: nil)
         } else {
           self.showSendMailErrorAlert()
         }
+        
       }, withCancelBlock: { error in
         print(error.description)
       })
@@ -661,6 +706,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   @IBAction func flagBtnPressed(sender: MaterialButton) {
     if let ref = sender.refStr {
       DataService.ds.ref_gig_posts.childByAppendingPath(ref).observeSingleEventOfType(FEventType.Value, withBlock: { snapshot in
+        
         let contactEmail = "kirakik@gmail.com"
         let contactRelay = "help@gigr.com"
         let emailString = NSString(format: "\(contactRelay) <%@>", contactEmail) as String
@@ -671,13 +717,15 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         let emailBody = "This post '\(postTitle)' violates the terms and conditions of Gigr and displays offensive/deceitful and otherwise objectionable content.\n\n\n\n Post: \(ref) \n Author: \(postAuthor)"
         
         let mailComposeViewController = self.configuredMailComposeVC(emailRecipient, subject: emailSubject, body: emailBody)
+        
         if MFMailComposeViewController.canSendMail() {
           self.presentViewController(mailComposeViewController, animated: true, completion: nil)
         } else {
           self.showSendMailErrorAlert()
         }
-        }, withCancelBlock: { error in
-          print(error.description)
+        
+      }, withCancelBlock: { error in
+        print(error.description)
       })
     }
   }
@@ -685,6 +733,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   @IBAction func flagUserBtnPressed(sender: MaterialButton) {
     if let userRef = sender.refStr {
       DataService.ds.ref_users.childByAppendingPath(userRef).observeSingleEventOfType(.Value, withBlock: { snapshot in
+        
         let contactEmail = "kirakik@gmail.com"
         let contactRelay = "help@gigr.com"
         let emailString = NSString(format: "\(contactRelay) <%@>", contactEmail) as String
@@ -694,11 +743,13 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         let emailBody = "This user - \(userName) - violates the terms and conditions of Gigr and his profile and/or posts display offensive/deceitful and otherwise objectionable content AND/OR this user has sent abusive messages to me and/or others (in this case, please provide a screenshot of the user's message(s)). \n\n\n\n User: \(userRef)"
         
         let mailComposeViewController = self.configuredMailComposeVC(emailRecipient, subject: emailSubject, body: emailBody)
+        
         if MFMailComposeViewController.canSendMail() {
           self.presentViewController(mailComposeViewController, animated: true, completion: nil)
         } else {
           self.showSendMailErrorAlert()
         }
+        
         }, withCancelBlock: { error in
           print(error.description)
       })
@@ -708,6 +759,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   @IBAction func contactBtnPressed(sender: MaterialButton) {
     if let userRef = sender.refStr {
       DataService.ds.ref_users.childByAppendingPath(userRef).observeSingleEventOfType(.Value, withBlock: { snapshot in
+        
         let userEmail = snapshot.value.objectForKey("email") as! String
         let userRelay = "user@gigr.com"
         let emailString = NSString(format: "\(userRelay) <%@>", userEmail) as String
@@ -716,11 +768,13 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         let emailBody = "Hi, "
         
         let mailComposeViewController = self.configuredMailComposeVC(emailRecipient, subject: emailSubject, body: emailBody)
+        
         if MFMailComposeViewController.canSendMail() {
           self.presentViewController(mailComposeViewController, animated: true, completion: nil)
         } else {
           self.showSendMailErrorAlert()
         }
+        
       }, withCancelBlock: { error in
         print(error.description)
       })
@@ -730,7 +784,9 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   @IBAction func favoriteTapped(sender: FavButton) {
     if let ref = sender.refStr {
       let favoritedRef = DataService.ds.ref_user_current.childByAppendingPath("favoritedWho").childByAppendingPath(ref)
+      
       favoritedRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        
         if ref != currentUserRef {
           if let cell = self.tableViewGigHunters.dequeueReusableCellWithIdentifier("GigHunterCell") as? GigHunterCell {
             if snapshot.value is NSNull {
@@ -744,6 +800,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             }
           }
         }
+        
       }, withCancelBlock: { error in
         print(error.debugDescription)
       })
@@ -757,7 +814,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     }
   }
   
-  //CONTACT EMAIL METHODS
+  /** CONTACT EMAIL FUNCTIONS **/
   func configuredMailComposeVC(recipients: [String], subject: String, body: String) -> MFMailComposeViewController {
     let mailComposerVC = MFMailComposeViewController()
     mailComposerVC.mailComposeDelegate = self
@@ -777,7 +834,7 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     controller.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  //EMPTY STATE METHODS
+  /** EMPTY STATE FUNCTIONS **/
   func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
     return UIColor.whiteColor()
   }

@@ -12,7 +12,7 @@ import SwiftSpinner
 
 class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var categoryField: UITextField!
   @IBOutlet weak var gigTitleField: UITextField!
   @IBOutlet weak var gigDescField: UITextView!
@@ -20,7 +20,7 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
   @IBOutlet weak var gigRateField: UITextField!
   @IBOutlet weak var gigTypeField: UITextField!
     
-  //PROPERTIES
+  /** PROPERTIES **/
   var currentUserImg = ""
   var currentUserEmail = ""
   var currentUserName = ""
@@ -38,10 +38,10 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
   )
   var todaysDate = ""
   
-  //VIEW METHODS
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
-    hideKeyboardWhenTappedAround()
+    
     gigDescField.delegate = self
     gigLocationField.delegate = self
     gpaViewController.placeDelegate = self
@@ -54,11 +54,13 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
       } else {
         self.currentUserImg = "https://imagizer.imageshack.us/v2/376x376q90/924/DmsKSf.jpg"
       }
+      
       if let currentUserEmail = snapshot.value.objectForKey("email") as? String {
         self.currentUserEmail = currentUserEmail
       } else {
         self.currentUserEmail = ""
       }
+      
       if let currentUserName = snapshot.value.objectForKey("name") as? String {
         self.currentUserName = currentUserName
       } else {
@@ -88,7 +90,12 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
     self.todaysDate = todaysDate
   }
   
-  //GPA METHODS
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    hideKeyboardWhenTappedAround()
+  }
+  
+  /** GPA FUNCTIONS **/
   override func placeSelected(place: Place) {
     super.placeSelected(place)
     selectedCity = place.description
@@ -98,7 +105,7 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  //ACTIONS
+  /** IB ACTIONS **/
   @IBAction func backBtnPressed(sender: UIButton) {
     dismissViewControllerAnimated(false, completion: nil)
   }
@@ -118,8 +125,9 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
     }
   }
     
-  //SYNCING WITH BACKEND
+  /** FUNCTIONS TO POST FIREBASE **/
   func postToFirebase() {
+    
     let gigPost: Dictionary<String, AnyObject> = [
       "datePosted": todaysDate,
       "gigCategory": categoryField.text!,
@@ -138,6 +146,7 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
     firebasePost.setValue(gigPost)
     let gigUrl = "\(firebasePost)"
     let gigRef = gigUrl.substringWithRange(Range<String.Index>(gigUrl.startIndex.advancedBy(36)..<gigUrl.endIndex))
+    
     postRef = DataService.ds.ref_user_current.childByAppendingPath("posts").childByAppendingPath(gigRef)
     postRef.setValue(true)
     
@@ -194,11 +203,12 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
     firebasePost.setValue(gigPostCat)
   }
 
-  //TEXT VIEW/FIELD DELEGATE METHODS
+  /** GPA FUNCTIONS **/
   func textFieldDidBeginEditing(textField: UITextField) {
     presentViewController(gpaViewController, animated: true, completion: nil)
   }
   
+  /** TEXT VIEW FUNCTIONS **/
   func textViewDidBeginEditing(textView: UITextView) {
     if textView.textColor == veryLightGrayColor {
       if textView.text == "e.g. Needs to be available 3 nights a week and have experience" {
@@ -215,7 +225,7 @@ class PostNewGigVC: UIViewController, UITextViewDelegate, UITextFieldDelegate, U
     }
   }
   
-  //PICKER VIEW METHODS
+  /** PICKER VIEW DELEGATE FUNCTIONS **/
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
     if pickerView.tag == 2 {
       return 1

@@ -14,44 +14,54 @@ import SwiftSpinner
 
 class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, MFMailComposeViewControllerDelegate {
   
+  /** IB OUTLETS **/
   @IBOutlet weak var tableView: UITableView!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var gigPosts = [Gig]()
   var appliedRef: Firebase!
   var postRef: Firebase!
   var userKey = ""
   var userName = ""
 
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     self.title = ""
+    
     tableView.delegate = self
     tableView.dataSource = self
     tableView.emptyDataSetSource = self
     tableView.emptyDataSetDelegate = self
     tableView.tableFooterView = UIView()
     tableView.showsVerticalScrollIndicator = false
+    
     if userKey != "" {
       populateGigPosts(userKey)
     }
+    
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+    
     hideKeyboardWhenTappedAround()
     tableView.reloadData()
+    
   }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
+    
     self.tableView.estimatedRowHeight = 270
     self.tableView.rowHeight = UITableViewAutomaticDimension
     self.tableView.setNeedsLayout()
     self.tableView.layoutIfNeeded()
+    
   }
   
-  //TABLE VIEW METHODS
+  /** TABLE VIEW PROTOCOL FUNCTIONS **/
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
@@ -62,23 +72,29 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     var img: UIImage?
+    
     if let cell = tableView.dequeueReusableCellWithIdentifier("UserPostCell") as? UserPostCell {
       let post = gigPosts[indexPath.row]
+      
       cell.applyToGig.refStr = "\(post.gigKey)"
       cell.messageButton.refStr = "\(post.gigKey)"
+      
       if let url = post.userImg {
         img = FeedGigsVC.profilImgCache.objectForKey(url) as? UIImage
       }
+      
       cell.configureCell(post, img: img)
+      
       return cell
     } else {
       return UserPostCell()
     }
+    
   }
-  
-  func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
-  }
+//  
+//  func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//    return true
+//  }
   
   override func setEditing(editing: Bool, animated: Bool) {
     super.setEditing(editing, animated: animated)
@@ -87,9 +103,11 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
 
   func populateGigPosts(userKey: String) {
     if let currentUserPosts = DataService.ds.ref_users.childByAppendingPath(userKey).childByAppendingPath("posts") {
+      
       currentUserPosts.observeSingleEventOfType(.Value, withBlock: { snapshot in
         if let snaps = snapshot.children.allObjects as? [FDataSnapshot] {
           self.gigPosts = []
+          
           for snap in snaps {
             let numberOfUserPosts = snaps.count
             let currentUserSnaps = snap.key
@@ -121,6 +139,7 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
               })
             }
           }
+          
         }
       }, withCancelBlock: { error in
         print(error.debugDescription)
@@ -132,6 +151,7 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
     if let ref = sender.refStr {
       appliedRef = DataService.ds.ref_gig_posts.childByAppendingPath(ref).childByAppendingPath("whoApplied").childByAppendingPath(currentUserRef)
       appliedRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        
         if let cell = self.tableView.dequeueReusableCellWithIdentifier("UserPostCell") as? UserPostCell {
           if snapshot.value is NSNull {
             cell.applyToGig.setTitle("I'M INTERESTED", forState: UIControlState.Normal)
@@ -143,6 +163,7 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
             self.appliedRef.removeValue()
           }
         }
+        
       })
     }
   }
@@ -159,18 +180,20 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
         let emailBody = "Hi, "
         
         let mailComposeViewController = self.configuredMailComposeVC(emailRecipient, subject: emailSubject, body: emailBody)
+        
         if MFMailComposeViewController.canSendMail() {
           self.presentViewController(mailComposeViewController, animated: true, completion: nil)
         } else {
           self.showSendMailErrorAlert()
         }
+        
       }, withCancelBlock: { error in
         print(error.description)
       })
     }
-    
   }
-  //CONTACT EMAIL METHODS
+  
+  /** CONTACT EMAIL FUNCTIONS **/
   func configuredMailComposeVC(recipients: [String], subject: String, body: String) -> MFMailComposeViewController {
     let mailComposerVC = MFMailComposeViewController()
     mailComposerVC.mailComposeDelegate = self
@@ -183,17 +206,18 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
   func showSendMailErrorAlert() {
     SwiftSpinner.showWithDuration(2, title: "Message Failed", animated: false).addTapHandler({
       SwiftSpinner.hide()
-      }, subtitle: "We couldn't send your message, you can throw rocks at us for failing you")
+    }, subtitle: "We couldn't send your message, you can throw rocks at us for failing you")
   }
   
   func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
     controller.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  //EMPTY STATE METHODS
+  /** EMPTY STATE FUNCTIONS **/
   func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
     return UIColor.whiteColor()
   }
+  
   func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
     let str = "Nothing here!"
     let attrs = [NSFontAttributeName: UIFont(name: "LemonMilk", size: 20.0)!]

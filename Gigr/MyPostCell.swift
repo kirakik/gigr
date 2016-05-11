@@ -10,13 +10,13 @@ import UIKit
 
 class MyPostCell: UICollectionViewCell {
   
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var postTitle: UILabel!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var post: Gig!
   
-  //METHODS
+  /** FUNCTIONS **/
   override func drawRect(rect: CGRect) {
     postTitle.layer.cornerRadius = postTitle.frame.size.width / 2
     postTitle.clipsToBounds = true

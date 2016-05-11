@@ -10,7 +10,7 @@ import UIKit
 
 class MaterialTextView: UITextView {
 
-  //DESCRIPTION TEXT VIEW
+  /** DESCRIPTION TEXT VIEW **/
   override func awakeFromNib() {
     layer.cornerRadius = 2.0
     if text == "e.g. Needs to be available 3 nights a week and have experience" {

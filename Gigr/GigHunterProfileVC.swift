@@ -14,7 +14,7 @@ import SwiftSpinner
 
 class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate {
   
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var userName: UILabel!
   @IBOutlet weak var userImg: UIImageView!
   @IBOutlet weak var userJobTitle: UILabel!
@@ -36,13 +36,13 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
   @IBOutlet weak var userIsGH: NSLayoutConstraint!
   @IBOutlet weak var userIsNotGH: NSLayoutConstraint!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var request: Request?
   var ref = ""
   var favoritedRef: Firebase!
   var currentUserImage = ""
   
-  //VIEW METHODS
+  /** VIEW FUNCTIONS **/
   override func viewDidLoad() {
     super.viewDidLoad()
     self.title = "PROFILE"
@@ -65,7 +65,7 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
     checkIfUserWasFavorited()
   }
   
-  //SEGUES
+  /** SEGUE FUNCTION **/
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showUserPosts" {
       if let detailVC = segue.destinationViewController as? UserPostsVC {
@@ -79,8 +79,7 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
     }
   }
   
-  //RETRIEVING FROM FIREBASE
-  
+  /** FUNCTIONS TO RETRIEVE FROM FIREBASE **/
   func retrieveUserImg() {
     if currentUserImage != "" {
       var img: UIImage?
@@ -100,9 +99,12 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
   
   func retrieveUserInfo() {
     if let userRef = DataService.ds.ref_users.childByAppendingPath(ref) {
+      
       userRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
         if snapshot.value is NSNull {
+          
         } else {
+          
           if let currentUserName = snapshot.value.objectForKey("name") as? String {
             self.userName.text = currentUserName
             let userNameUpper = currentUserName.uppercaseString
@@ -110,7 +112,9 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
           } else {
             self.userName.text = ""
           }
+          
           if let userType = snapshot.value.objectForKey("userType") as? String {
+            
             if userType != "Gig Poster" {
               self.userIsGH.priority = 999
               self.userIsNotGH.priority = 998
@@ -131,7 +135,9 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
               self.contactButton.hidden = false
               self.flagUserButton.hidden = false
             }
+            
           }
+          
           if let currentUserCity = snapshot.value.objectForKey("city") as? String {
             if currentUserCity != "" {
               self.userCity.text = currentUserCity
@@ -141,11 +147,13 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
           } else {
             self.userCity.text = ""
           }
+          
           if let currentUserDesc = snapshot.value.objectForKey("shortDesc") as? String {
             self.userDesc.text = currentUserDesc
           } else {
             self.userDesc.text = ""
           }
+          
           if let currentUserSkills = snapshot.value.objectForKey("skills") as? String {
             if currentUserSkills != "" {
               self.userSkills.text = currentUserSkills
@@ -155,6 +163,7 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
           } else {
             self.userSkills.text = "/"
           }
+          
           if let currentUserAvailabilities = snapshot.value.objectForKey("availabilities") as? String {
             if currentUserAvailabilities != "" {
               self.userAvailabilities.text = currentUserAvailabilities
@@ -164,6 +173,7 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
           } else {
             self.userAvailabilities.text = "/"
           }
+          
           if let currentUserLinkedin = snapshot.value.objectForKey("linkedin") as? String {
             if currentUserLinkedin != "http://linkedin.com/in/" {
               self.userLinkedin.setTitle(currentUserLinkedin, forState: .Normal)
@@ -173,6 +183,7 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
           } else {
             self.userLinkedin.setTitle("/", forState: .Normal)
           }
+          
           if let currentUserImage = snapshot.value.objectForKey("userImg") as? String {
             if currentUserImage != "" {
               self.currentUserImage = currentUserImage
@@ -182,6 +193,7 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
           } else {
             self.currentUserImage = ""
           }
+          
         }
       }, withCancelBlock: { error in
         print(error.debugDescription)
@@ -191,6 +203,7 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
   
   func checkIfUserHasPosts() {
     DataService.ds.ref_users.childByAppendingPath(ref).childByAppendingPath("posts").observeSingleEventOfType(.Value, withBlock: { snapshot in
+      
       if self.ref != currentUserRef {
         if snapshot.value is NSNull {
           self.showUserPosts.hidden = true
@@ -204,11 +217,13 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
           self.userHasNoPostsConstraint.priority = 998
         }
       }
+      
     })
   }
   
   func checkIfUserWasFavorited() {
     favoritedRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      
       if self.ref != currentUserRef {
         self.favoriteButton.hidden = false
         self.contactButton.hidden = false
@@ -226,12 +241,13 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
         self.showUserPosts.hidden = true
         self.showUserPostsArrow.hidden = true
       }
+      
     }, withCancelBlock: { error in
       print(error.debugDescription)
     })
   }
   
-  //CONTACT EMAIL METHODS
+  /** CONTACT EMAIL FUNCTIONS **/
   func configuredMailComposeVC(recipients: [String], subject: String, body: String) -> MFMailComposeViewController {
     let mailComposerVC = MFMailComposeViewController()
     mailComposerVC.mailComposeDelegate = self
@@ -251,7 +267,7 @@ class GigHunterProfileVC: UIViewController, MFMailComposeViewControllerDelegate 
     controller.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  //ACTIONS
+  /** IB ACTIONS **/
   @IBAction func contactBtnPressed(sender: MaterialButton) {
     if ref != "" {
       DataService.ds.ref_users.childByAppendingPath(ref).observeSingleEventOfType(.Value, withBlock: { snapshot in

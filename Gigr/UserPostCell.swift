@@ -12,7 +12,7 @@ import Alamofire
 
 class UserPostCell: UITableViewCell {
 
-  //OUTLETS
+  /** IB OUTLETS **/
   @IBOutlet weak var userName: UILabel!
   @IBOutlet weak var userImg: UIImageView!
   @IBOutlet weak var gigTitle: UILabel!
@@ -23,21 +23,18 @@ class UserPostCell: UITableViewCell {
   @IBOutlet weak var applyToGig: MaterialButton!
   @IBOutlet weak var messageButton: MaterialButton!
   
-  //PROPERTIES
+  /** PROPERTIES **/
   var gigPost: Gig!
   var request: Request?
   var appliedRef: Firebase!
   var userRef = ""
   var postKey = ""
   
-  //METHODS
+  /** FUNCTIONS **/
   override func awakeFromNib() {
     super.awakeFromNib()
     userImg.layer.cornerRadius = userImg.frame.size.width / 2
     userImg.clipsToBounds = true
-  }
-  
-  override func drawRect(rect: CGRect) {
   }
   
   func configureCell(gigPost: Gig, img: UIImage?) {
@@ -89,4 +86,5 @@ class UserPostCell: UITableViewCell {
         print(error.debugDescription)
     })
   }
+  
 }
