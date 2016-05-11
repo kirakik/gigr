@@ -31,8 +31,7 @@ class PostCell: UITableViewCell, UITextFieldDelegate, UITextViewDelegate {
   @IBOutlet weak var deleteButton: MaterialButton!
   @IBOutlet weak var editButton: MaterialButton!
   @IBOutlet weak var savePostButton: MaterialButton!
-  @IBOutlet weak var gigLocationTopConstraints: NSLayoutConstraint!
-  
+
   //PROPERTIES
   var gigPost: Gig!
   var request: Request?

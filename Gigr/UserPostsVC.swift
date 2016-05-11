@@ -43,6 +43,14 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
     tableView.reloadData()
   }
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tableView.estimatedRowHeight = 270
+    self.tableView.rowHeight = UITableViewAutomaticDimension
+    self.tableView.setNeedsLayout()
+    self.tableView.layoutIfNeeded()
+  }
+  
   //TABLE VIEW METHODS
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
@@ -58,7 +66,6 @@ class UserPostsVC: UIViewController, UITableViewDataSource, UITableViewDelegate,
       let post = gigPosts[indexPath.row]
       cell.applyToGig.refStr = "\(post.gigKey)"
       cell.messageButton.refStr = "\(post.gigKey)"
-      
       if let url = post.userImg {
         img = FeedGigsVC.profilImgCache.objectForKey(url) as? UIImage
       }

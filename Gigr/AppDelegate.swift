@@ -19,38 +19,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    
-    Firebase.defaultConfig().persistenceEnabled = true
-        
-    let attr = NSDictionary(object: UIFont(name: "LemonMilk", size: 12.0)!, forKey: NSFontAttributeName)
-    UISegmentedControl.appearance().setTitleTextAttributes(attr as? [NSObject : AnyObject] , forState: .Normal)
-    
-    IQKeyboardManager.sharedManager().enable = true
-    IQKeyboardManager.sharedManager().disableToolbarInViewControllerClass(PostNewGigVC)
-    IQKeyboardManager.sharedManager().disableToolbarInViewControllerClass(LoginVC)
-    
-    let barAppearace = UIBarButtonItem.appearance()
-    barAppearace.setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), forBarMetrics:UIBarMetrics.Default)
-    
-//    Batch.startWithAPIKey("DEV571538A410CD24D9809889DF3EB")
-//    let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
-//    let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
-//    application.registerUserNotificationSettings(pushNotificationSettings)
-//    application.registerForRemoteNotifications()
+    setUpFirebasePersistence()
+    setUpNavBar()
+    setUpKeyboard()
+    setUpSegmentedControls()
+    setUpPushNotifications()
+    setUpDynamicShortcuts(application)
     
     return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
   }
-
-//  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-//  }
-//  
-//  func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-//    print(error)
-//  }
-
-//  func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-//    application.dismissNotifications()
-//  }
+  
+  func setUpFirebasePersistence() {
+    Firebase.defaultConfig().persistenceEnabled = true
+  }
+  
+  func setUpPushNotifications() {
+    //    Batch.startWithAPIKey("DEV571538A410CD24D9809889DF3EB")
+    //    let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+    //    let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+    //    application.registerUserNotificationSettings(pushNotificationSettings)
+    //    application.registerForRemoteNotifications()
+  }
+  
+  //  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+  //  }
+  //
+  //  func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+  //    print(error)
+  //  }
+  
+  //  func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+  //    application.dismissNotifications()
+  //  }
+  
+  func setUpKeyboard() {
+    IQKeyboardManager.sharedManager().enable = true
+    IQKeyboardManager.sharedManager().disableToolbarInViewControllerClass(PostNewGigVC)
+    IQKeyboardManager.sharedManager().disableToolbarInViewControllerClass(LoginVC)
+  }
+  
+  func setUpNavBar() {
+    let barAppearance = UIBarButtonItem.appearance()
+    barAppearance.setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), forBarMetrics:UIBarMetrics.Default)
+  }
+  
+  func setUpSegmentedControls() {
+    let attr = NSDictionary(object: UIFont(name: "LemonMilk", size: 12.0)!, forKey: NSFontAttributeName)
+    UISegmentedControl.appearance().setTitleTextAttributes(attr as? [NSObject : AnyObject] , forState: .Normal)
+  }
+  
+  func setUpDynamicShortcuts(application: UIApplication) {
+    if let shortcutItems = application.shortcutItems where shortcutItems.isEmpty {
+      let dynamicShortcut = UIMutableApplicationShortcutItem(type: "MyPosts", localizedTitle: "My Posts", localizedSubtitle: "", icon: UIApplicationShortcutIcon(type: UIApplicationShortcutIconType.Contact), userInfo: nil)
+      application.shortcutItems = [dynamicShortcut]
+    }
+  }
 
   func applicationWillResignActive(application: UIApplication) {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -142,6 +165,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     }
   }
+  
+//  func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+//    let handledShortCutItem = handleShortcutItemPressed(shortcutItem)
+//    completionHandler(handledShortCutItem)
+//  }
+  
+//  func handleShortcutItemPressed(shortcutItem: UIApplicationShortcutItem) -> Bool {
+//    var handled = false
+//    let rootVC = window?.rootViewController
+//    rootVC?.performSegueWithIdentifier(segue_login, sender: nil)
+//
+//    if let feedGigsVC = rootVC?.storyboard?.instantiateViewControllerWithIdentifier("FeedGigsVC") {
+//      print(feedGigsVC)
+//      feedGigsVC.performSegueWithIdentifier("postNewGig", sender: nil)
+//    }
+//    let uid = NSUserDefaults.standardUserDefaults().valueForKey(key_uid) as? String
+//    if uid != "" {
+//      if let rootVC = window?.rootViewController as? UINavigationController {
+//        print(rootVC)
+//        if let feedGigsVC = rootVC.viewControllers.first as? FeedGigsVC {
+//  
+//          if shortcutItem.type == "Post" {
+//            feedGigsVC!.performSegueWithIdentifier("postNewGig", sender: nil)
+//            handled = true
+//          } else if shortcutItem.type == "MyPosts" {
+//            feedGigsVC!.performSegueWithIdentifier("showMyPosts", sender: nil)
+//            handled = true
+//          }
+//          
+//        }
+//      }
+//    }
+//    return handled
+//  }
 
 }
 

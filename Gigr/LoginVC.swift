@@ -202,10 +202,19 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
                       })
                     }
                   })
+                } else if let errorCode = FAuthenticationError(rawValue: error.code) {
+                  switch(errorCode) {
+                  case .InvalidEmail:
+                    SwiftSpinner.showWithDuration(1, title: "Your email is invalid", animated: false)
+                  case .InvalidPassword:
+                    SwiftSpinner.showWithDuration(1, title: "Wrong Password", animated: false)
+                  default:
+                    break
+                  }
                 } else {
                   SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
                     SwiftSpinner.hide()
-                  }, subtitle: "Check your internet connection")
+                    }, subtitle: "Check your internet connection")
                 }
               } else {
                 SwiftSpinner.showWithDuration(1, title: "This account already exists", animated: false).addTapHandler({

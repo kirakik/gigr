@@ -13,6 +13,7 @@ import Alamofire
 class UserPostCell: UITableViewCell {
 
   //OUTLETS
+  @IBOutlet weak var userName: UILabel!
   @IBOutlet weak var userImg: UIImageView!
   @IBOutlet weak var gigTitle: UILabel!
   @IBOutlet weak var gigRate: UILabel!
@@ -32,20 +33,25 @@ class UserPostCell: UITableViewCell {
   //METHODS
   override func awakeFromNib() {
     super.awakeFromNib()
+    userImg.layer.cornerRadius = userImg.frame.size.width / 2
+    userImg.clipsToBounds = true
   }
   
   override func drawRect(rect: CGRect) {
-    userImg.layer.cornerRadius = userImg.frame.size.width / 2
-    userImg.clipsToBounds = true
   }
   
   func configureCell(gigPost: Gig, img: UIImage?) {
     self.gigPost = gigPost
     self.postKey = "\(gigPost.gigKey)"
     appliedRef = DataService.ds.ref_gig_posts.childByAppendingPath(postKey).childByAppendingPath("whoApplied").childByAppendingPath(currentUserRef)
+    self.userName.text = gigPost.userName.uppercaseString
     self.gigTitle.text = gigPost.gigTitle
     self.gigDescription.text = gigPost.gigDescription
-    self.gigRate.text = gigPost.gigRate
+    if let rate = gigPost.gigRate where rate != "" {
+      self.gigRate.text = gigPost.gigRate
+    } else {
+      self.gigRate.text = "/"
+    }
     self.gigType.text = gigPost.gigType
     self.gigLocation.text = gigPost.gigLocation
     
@@ -65,8 +71,11 @@ class UserPostCell: UITableViewCell {
       let img = UIImage(named: "placeholderImg.png")
       self.userImg.image = img
     }
-    
-    // Change button if user has applied
+  
+    checkIfUserApplied()
+  }
+
+  func checkIfUserApplied() {
     appliedRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       if snapshot.value is NSNull {
         // We haven't applied to this gig
@@ -76,9 +85,8 @@ class UserPostCell: UITableViewCell {
         self.applyToGig.setTitle("YOU APPLIED", forState: UIControlState.Normal)
         self.applyToGig.backgroundColor = greenButtonColor
       }
-    }, withCancelBlock: { error in
-      print(error.debugDescription)
-    })    
+      }, withCancelBlock: { error in
+        print(error.debugDescription)
+    })
   }
-
 }

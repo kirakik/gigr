@@ -33,12 +33,6 @@
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
-            <string>NotoSans-Bold</string>
-            <string>NotoSans-Bold</string>
-            <string>NotoSans-Bold</string>
-            <string>NotoSans-Bold</string>
-            <string>NotoSans-Bold</string>
-            <string>NotoSans-Bold</string>
         </mutableArray>
         <mutableArray key="NotoSans-BoldItalic.ttf">
             <string>NotoSans-BoldItalic</string>
@@ -2325,7 +2319,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="320" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fPj-l4-Kpb" userLabel="Table View G">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="270" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fPj-l4-Kpb" userLabel="Table View G">
                                 <rect key="frame" x="0.0" y="91" width="600" height="445"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.81729166669999997" green="0.81729166669999997" blue="0.81729166669999997" alpha="0.38858173080000002" colorSpace="calibratedRGB"/>
@@ -2358,56 +2352,67 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                                     </constraints>
                                                                 </imageView>
                                                             </subviews>
-                                                        </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looking for a bartender" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="3oe-cA-dl9">
-                                                            <rect key="frame" x="8" y="45" width="528" height="40"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="Tfx-eq-xms"/>
+                                                                <constraint firstAttribute="height" constant="40" id="bbb-u0-306"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looking for a bartender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="3oe-cA-dl9">
+                                                            <rect key="frame" x="8" y="50" width="528" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="Tfx-eq-xms"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="NotoSans-BoldItalic" family="Noto Sans" pointSize="17"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="EBd-GL-9DQ" userLabel="Edit Title">
-                                                            <rect key="frame" x="8" y="48" width="528" height="35"/>
+                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="EBd-GL-9DQ" userLabel="Edit Title">
+                                                            <rect key="frame" x="8" y="50" width="528" height="25"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="35" id="c5g-8c-36u"/>
+                                                                <constraint firstAttribute="height" constant="25" id="c5g-8c-36u"/>
                                                             </constraints>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="NotoSans-BoldItalic" family="Noto Sans" pointSize="17"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                                         </textField>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="2pm-kA-fkc">
-                                                            <rect key="frame" x="8" y="112" width="528" height="97"/>
+                                                            <rect key="frame" x="8" y="109" width="528" height="99"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="97" id="rrd-x6-65c"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="rrd-x6-65c"/>
                                                             </constraints>
                                                             <string key="text">My sister is getting married and we need a great experienced bartender for the event. Needs to be responsible and have at least 2 references. Call me at 514-449-4045</string>
                                                             <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="H88-Rj-pxp" userLabel="Edit Description">
-                                                            <rect key="frame" x="8" y="112" width="528" height="97"/>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H88-Rj-pxp" userLabel="Edit Description">
+                                                            <rect key="frame" x="8" y="109" width="528" height="99"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="HMb-Ep-7QT"/>
+                                                            </constraints>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <variation key="default">
+                                                                <mask key="constraints">
+                                                                    <exclude reference="HMb-Ep-7QT"/>
+                                                                </mask>
+                                                            </variation>
                                                         </textView>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Rate" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oMO-XM-bcw" userLabel="Edit Rate">
-                                                            <rect key="frame" x="8" y="217" width="263" height="30"/>
+                                                            <rect key="frame" x="8" y="216" width="263" height="30"/>
                                                             <color key="textColor" red="0.7588125" green="0.36186025119999998" blue="0.4160753572" alpha="0.50251201919999999" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Type" placeholder="Dates" textAlignment="right" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="QLc-T7-UwI" userLabel="Edit Type">
-                                                            <rect key="frame" x="274" y="217" width="262" height="30"/>
+                                                            <rect key="frame" x="274" y="216" width="262" height="30"/>
                                                             <color key="textColor" red="0.7588125" green="0.36186025119999998" blue="0.4160753572" alpha="0.50251201919999999" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                         </textField>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="4eW-c2-cpk">
-                                                            <rect key="frame" x="8" y="217" width="528" height="30"/>
+                                                            <rect key="frame" x="8" y="216" width="528" height="30"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="tS8-aZ-0Gw">
                                                                     <rect key="frame" x="0.0" y="0.0" width="263" height="30"/>
@@ -2427,7 +2432,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eiT-sE-ooL" userLabel="Not Current User">
-                                                            <rect key="frame" x="149" y="262" width="247" height="30"/>
+                                                            <rect key="frame" x="149" y="261" width="247" height="30"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqR-hR-Roq" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
@@ -2475,32 +2480,30 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="18e-j8-2SC" userLabel="Current User">
-                                                            <rect key="frame" x="158" y="261" width="227" height="30"/>
+                                                            <rect key="frame" x="217" y="261" width="110" height="30"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdo-q8-J3B" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="30"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdo-q8-J3B" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                                                     <color key="backgroundColor" red="0.47543234080193592" green="0.47625346698889781" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="90" id="Obr-PS-SeR"/>
+                                                                        <constraint firstAttribute="width" constant="50" id="Obr-PS-SeR"/>
                                                                         <constraint firstAttribute="height" constant="30" id="h36-aQ-M5K"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="13"/>
-                                                                    <state key="normal" title="EDIT">
+                                                                    <state key="normal" image="pencil">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="editButtonPressed:" destination="spD-QY-v8N" eventType="touchUpInside" id="8vm-10-W57"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbL-qN-xF4" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
-                                                                    <rect key="frame" x="100" y="0.0" width="127" height="30"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbL-qN-xF4" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
+                                                                    <rect key="frame" x="60" y="0.0" width="50" height="30"/>
                                                                     <color key="backgroundColor" red="0.82321875" green="0.0" blue="0.10231312685375994" alpha="0.69551682692307693" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="30" id="E8q-Wn-MJJ"/>
-                                                                        <constraint firstAttribute="width" constant="127" id="EMM-wT-00k"/>
+                                                                        <constraint firstAttribute="width" constant="50" id="EMM-wT-00k"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="13"/>
-                                                                    <state key="normal" title="DELETE">
+                                                                    <state key="normal" image="trash">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
@@ -2509,15 +2512,14 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
-                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpQ-f0-YXA" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
-                                                            <rect key="frame" x="227" y="262" width="90" height="30"/>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpQ-f0-YXA" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
+                                                            <rect key="frame" x="247" y="261" width="50" height="30"/>
                                                             <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="0.78050480769230768" colorSpace="calibratedRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="90" id="3Vb-5U-Prn"/>
+                                                                <constraint firstAttribute="width" constant="50" id="3Vb-5U-Prn"/>
                                                                 <constraint firstAttribute="height" constant="30" id="ttu-w1-a6q"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="13"/>
-                                                            <state key="normal" title="DONE">
+                                                            <state key="normal" image="done">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
@@ -2525,23 +2527,23 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                             </connections>
                                                         </button>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6b8-G3-HML" userLabel="Edit Location">
-                                                            <rect key="frame" x="32" y="86" width="504" height="23"/>
+                                                            <rect key="frame" x="32" y="79" width="504" height="25"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="23" id="hH4-AY-dOq"/>
+                                                                <constraint firstAttribute="height" constant="25" id="hH4-AY-dOq"/>
                                                             </constraints>
                                                             <color key="textColor" red="0.6135312477" green="0.62785830440000001" blue="0.62811458330000003" alpha="0.83893028849999995" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                         </textField>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="aVL-Rq-Byc">
-                                                            <rect key="frame" x="8" y="87" width="528" height="20"/>
+                                                            <rect key="frame" x="8" y="79" width="528" height="25"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location-pin" translatesAutoresizingMaskIntoConstraints="NO" id="koD-1y-TUc">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="5" width="18" height="15"/>
                                                                     <color key="tintColor" red="0.6135312477" green="0.62785830440000001" blue="0.62811458330000003" alpha="0.83893028849999995" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="18" id="5jj-f5-T7A"/>
-                                                                        <constraint firstAttribute="height" constant="20" id="WKM-uE-0zM"/>
+                                                                        <constraint firstAttribute="height" constant="15" id="WKM-uE-0zM"/>
                                                                         <constraint firstAttribute="height" constant="18" id="XLh-3A-srx"/>
                                                                     </constraints>
                                                                     <variation key="default">
@@ -2560,12 +2562,16 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="DKr-Nv-cCk"/>
+                                                            </constraints>
                                                         </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="H88-Rj-pxp" firstAttribute="leading" secondItem="2pm-kA-fkc" secondAttribute="leading" id="0yo-Ml-gaR"/>
                                                         <constraint firstItem="2pm-kA-fkc" firstAttribute="top" secondItem="aVL-Rq-Byc" secondAttribute="bottom" constant="5" id="5Ff-xJ-nH5"/>
+                                                        <constraint firstItem="18e-j8-2SC" firstAttribute="top" secondItem="eiT-sE-ooL" secondAttribute="top" id="5ZK-1i-gpv"/>
                                                         <constraint firstItem="4eW-c2-cpk" firstAttribute="leading" secondItem="kdC-59-Sge" secondAttribute="leading" constant="8" id="5o0-WS-PRc"/>
                                                         <constraint firstItem="tS8-aZ-0Gw" firstAttribute="top" secondItem="oMO-XM-bcw" secondAttribute="top" id="70g-Kx-kYe"/>
                                                         <constraint firstItem="eiT-sE-ooL" firstAttribute="top" secondItem="4eW-c2-cpk" secondAttribute="bottom" constant="15" id="7VW-gF-OhV"/>
@@ -2575,10 +2581,12 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                         <constraint firstItem="H88-Rj-pxp" firstAttribute="height" secondItem="2pm-kA-fkc" secondAttribute="height" id="BMa-gY-eBf"/>
                                                         <constraint firstItem="JlF-uz-6KH" firstAttribute="leading" secondItem="QLc-T7-UwI" secondAttribute="leading" id="DnN-Yv-A3R"/>
                                                         <constraint firstItem="EBd-GL-9DQ" firstAttribute="leading" secondItem="kdC-59-Sge" secondAttribute="leading" constant="8" id="Dz1-bL-1dj"/>
-                                                        <constraint firstItem="EBd-GL-9DQ" firstAttribute="top" secondItem="Ex9-mz-IdN" secondAttribute="bottom" constant="8" id="EHX-or-dpd"/>
+                                                        <constraint firstItem="EBd-GL-9DQ" firstAttribute="top" secondItem="Ex9-mz-IdN" secondAttribute="bottom" constant="10" id="EHX-or-dpd"/>
+                                                        <constraint firstItem="VpQ-f0-YXA" firstAttribute="bottom" secondItem="18e-j8-2SC" secondAttribute="bottom" id="EQA-Li-g1o"/>
                                                         <constraint firstItem="VpQ-f0-YXA" firstAttribute="top" secondItem="4eW-c2-cpk" secondAttribute="bottom" constant="15" id="FtP-Ao-hw9"/>
+                                                        <constraint firstItem="VpQ-f0-YXA" firstAttribute="top" secondItem="18e-j8-2SC" secondAttribute="top" id="GCi-ER-aUb"/>
                                                         <constraint firstAttribute="trailing" secondItem="aVL-Rq-Byc" secondAttribute="trailing" constant="8" id="GF6-lu-yku"/>
-                                                        <constraint firstItem="EBd-GL-9DQ" firstAttribute="top" secondItem="3oe-cA-dl9" secondAttribute="top" constant="3" id="HfI-IQ-7Q8"/>
+                                                        <constraint firstItem="EBd-GL-9DQ" firstAttribute="top" secondItem="3oe-cA-dl9" secondAttribute="top" id="HfI-IQ-7Q8"/>
                                                         <constraint firstItem="6b8-G3-HML" firstAttribute="top" secondItem="3oe-cA-dl9" secondAttribute="bottom" constant="1" id="ImY-XX-0J1"/>
                                                         <constraint firstItem="aVL-Rq-Byc" firstAttribute="leading" secondItem="kdC-59-Sge" secondAttribute="leading" constant="8" id="J5p-Cw-mxa"/>
                                                         <constraint firstItem="JlF-uz-6KH" firstAttribute="top" secondItem="QLc-T7-UwI" secondAttribute="top" id="JPo-v3-Z1S"/>
@@ -2596,7 +2604,10 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                         <constraint firstItem="H88-Rj-pxp" firstAttribute="bottom" secondItem="2pm-kA-fkc" secondAttribute="bottom" id="b0k-yu-BIx"/>
                                                         <constraint firstItem="aVL-Rq-Byc" firstAttribute="top" secondItem="EBd-GL-9DQ" secondAttribute="bottom" constant="4" id="b7L-yW-iyv"/>
                                                         <constraint firstItem="JlF-uz-6KH" firstAttribute="height" secondItem="QLc-T7-UwI" secondAttribute="height" id="c8d-O8-xue"/>
+                                                        <constraint firstItem="18e-j8-2SC" firstAttribute="top" secondItem="4eW-c2-cpk" secondAttribute="bottom" constant="15" id="cal-yH-9nZ"/>
                                                         <constraint firstAttribute="trailing" secondItem="6b8-G3-HML" secondAttribute="trailing" constant="8" id="cpZ-1A-Q3i"/>
+                                                        <constraint firstItem="H88-Rj-pxp" firstAttribute="height" secondItem="2pm-kA-fkc" secondAttribute="height" id="eEC-qp-wmS"/>
+                                                        <constraint firstAttribute="bottom" secondItem="eiT-sE-ooL" secondAttribute="bottom" constant="12" id="hRu-e8-qJc"/>
                                                         <constraint firstAttribute="trailing" secondItem="4eW-c2-cpk" secondAttribute="trailing" constant="8" id="jGu-6l-MBH"/>
                                                         <constraint firstItem="H88-Rj-pxp" firstAttribute="trailing" secondItem="2pm-kA-fkc" secondAttribute="trailing" id="lTa-UY-dgX"/>
                                                         <constraint firstAttribute="trailing" secondItem="2pm-kA-fkc" secondAttribute="trailing" constant="8" id="mev-1c-l8U"/>
@@ -2604,9 +2615,20 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                         <constraint firstAttribute="trailing" secondItem="Ex9-mz-IdN" secondAttribute="trailing" constant="-10" id="oGw-9D-t5Z"/>
                                                         <constraint firstItem="eiT-sE-ooL" firstAttribute="centerX" secondItem="kdC-59-Sge" secondAttribute="centerX" id="pIL-2w-mME"/>
                                                         <constraint firstItem="EBd-GL-9DQ" firstAttribute="leading" secondItem="3oe-cA-dl9" secondAttribute="leading" id="wBs-IV-g64"/>
+                                                        <constraint firstItem="18e-j8-2SC" firstAttribute="bottom" secondItem="eiT-sE-ooL" secondAttribute="bottom" id="we4-oW-tWI"/>
                                                         <constraint firstItem="VpQ-f0-YXA" firstAttribute="centerX" secondItem="kdC-59-Sge" secondAttribute="centerX" id="yGn-yb-2bq"/>
                                                         <constraint firstItem="Ex9-mz-IdN" firstAttribute="top" secondItem="kdC-59-Sge" secondAttribute="top" id="yUo-8D-QAw"/>
+                                                        <constraint firstItem="6b8-G3-HML" firstAttribute="top" secondItem="aVL-Rq-Byc" secondAttribute="top" id="yqL-qP-Pbg"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="ImY-XX-0J1"/>
+                                                            <exclude reference="BMa-gY-eBf"/>
+                                                            <exclude reference="8i9-xg-zpy"/>
+                                                            <exclude reference="cal-yH-9nZ"/>
+                                                            <exclude reference="FtP-Ao-hw9"/>
+                                                        </mask>
+                                                    </variation>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Lw-hd-wa8" userLabel="Layer">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
@@ -2684,7 +2706,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                 <action selector="showFiltersButtonPressed:" destination="spD-QY-v8N" id="kwu-34-mTz"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="postsicon" id="bvW-Oj-Frp">
+                        <barButtonItem key="rightBarButtonItem" image="edit" id="bvW-Oj-Frp">
                             <connections>
                                 <segue destination="igK-HY-2U2" kind="show" identifier="showMyPosts" id="taY-VR-B4F"/>
                             </connections>
@@ -2852,11 +2874,11 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                         <viewControllerLayoutGuide type="bottom" id="aqK-n8-tR7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aRB-TR-gdl">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tN3-gv-xrM">
-                                <rect key="frame" x="20" y="0.0" width="560" height="536"/>
+                                <rect key="frame" x="20" y="20" width="560" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.81729166669999997" green="0.81729166669999997" blue="0.81729166669999997" alpha="0.38858173080000002" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -3007,11 +3029,11 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                         <viewControllerLayoutGuide type="bottom" id="nYK-p9-NTj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Uav-za-8xC">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5v3-yw-yHd" userLabel="Users Posts">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mdY-DW-PqA">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="40"/>
@@ -3038,7 +3060,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                 </subviews>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W56-2I-fTv">
-                                <rect key="frame" x="0.0" y="40" width="600" height="496"/>
+                                <rect key="frame" x="0.0" y="60" width="600" height="540"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DrK-rt-iDy" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="470"/>
@@ -3313,63 +3335,75 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                         <viewControllerLayoutGuide type="bottom" id="A4x-fo-F4D"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Odg-kZ-Hm3">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="287" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Abh-ts-PTZ" userLabel="Table View G">
-                                <rect key="frame" x="20" y="0.0" width="560" height="536"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.81729166669999997" green="0.81729166669999997" blue="0.81729166669999997" alpha="0.38858173080000002" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserPostCell" rowHeight="287" id="ODf-IU-bbo" customClass="UserPostCell" customModule="Gigr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="560" height="287"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ODf-IU-bbo" id="hT2-cH-Rs5">
-                                            <rect key="frame" x="0.0" y="0.0" width="560" height="286"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserPostCell" rowHeight="320" id="nAJ-3q-f6M" userLabel="UserPostCell" customClass="UserPostCell" customModule="Gigr" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="320"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nAJ-3q-f6M" id="eD5-XM-8I0">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="319"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsN-Z3-axy" userLabel="Container">
-                                                    <rect key="frame" x="8" y="8" width="544" height="270"/>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lvF-56-gZd" userLabel="Container">
+                                                    <rect key="frame" x="28" y="8" width="504" height="303"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Aer-2x-dOp">
-                                                            <rect key="frame" x="8" y="8" width="528" height="48"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hHL-Yc-446" userLabel="User Info">
+                                                            <rect key="frame" x="0.0" y="0.0" width="554" height="40"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looking for a bartender" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Lxn-sV-Mo9">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="470" height="48"/>
-                                                                    <fontDescription key="fontDescription" name="NotoSans-BoldItalic" family="Noto Sans" pointSize="17"/>
-                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="mdh-w5-zuD" userLabel="User Name">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="504" height="40"/>
+                                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="12"/>
+                                                                    <color key="textColor" red="0.6135312477" green="0.62785830440000001" blue="0.62811458330000003" alpha="0.83893028849999995" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="xlN-C7-G9H">
-                                                                    <rect key="frame" x="480" y="0.0" width="48" height="48"/>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderImg" translatesAutoresizingMaskIntoConstraints="NO" id="KAc-gT-etc">
+                                                                    <rect key="frame" x="514" y="0.0" width="40" height="40"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="48" id="Gh2-TH-vrz"/>
-                                                                        <constraint firstAttribute="height" constant="48" id="sh7-6N-dOE"/>
+                                                                        <constraint firstAttribute="width" constant="40" id="3A9-B7-ED6"/>
+                                                                        <constraint firstAttribute="height" constant="40" id="rAh-Jl-NE7"/>
                                                                     </constraints>
                                                                 </imageView>
                                                             </subviews>
-                                                        </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="n39-kH-NiY">
-                                                            <rect key="frame" x="8" y="78" width="528" height="97"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="97" id="ZGv-IN-WLh"/>
+                                                                <constraint firstAttribute="height" constant="40" id="Yu1-pQ-qzn"/>
                                                             </constraints>
-                                                            <string key="text">My sister is getting married and we need a great experienced bartender for the event. Needs to be responsible and have at least 2 references. Call me at 514-449-4045</string>
-                                                            <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="15"/>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Looking for a bartender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="JX6-fJ-0zL">
+                                                            <rect key="frame" x="8" y="50" width="488" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="sua-sK-s1R"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="NotoSans-BoldItalic" family="Noto Sans" pointSize="17"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="o9s-2k-Lza">
-                                                            <rect key="frame" x="8" y="183" width="528" height="30"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="5ds-Tb-ZUE">
+                                                            <rect key="frame" x="8" y="113" width="488" height="95"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ytR-aV-Fjh"/>
+                                                            </constraints>
+                                                            <string key="text">My sister is getting married and we need a great experienced bartender for the event. Needs to be responsible and have at least 2 references. Call me at 514-449-4045</string>
+                                                            <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="7hS-2d-3eC">
+                                                            <rect key="frame" x="8" y="216" width="528" height="30"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ctr-7R-gEQ">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="nON-7Q-VJm">
                                                                     <rect key="frame" x="0.0" y="0.0" width="263" height="30"/>
                                                                     <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                                     <color key="textColor" red="0.7588125" green="0.36186025119999998" blue="0.4160753572" alpha="0.50251201919999999" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="FCz-ns-9xx" userLabel="Gig Type">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-Wu-CU9" userLabel="Gig Type">
                                                                     <rect key="frame" x="266" y="0.0" width="262" height="30"/>
                                                                     <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                                     <color key="textColor" red="0.7588125" green="0.36186025119999998" blue="0.4160753572" alpha="0.5" colorSpace="calibratedRGB"/>
@@ -3377,107 +3411,129 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                                                 </label>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="Z2q-Cd-3EY"/>
+                                                                <constraint firstAttribute="height" constant="30" id="OPx-oW-agQ"/>
                                                             </constraints>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-2f-PEd" userLabel="Not Current User">
-                                                            <rect key="frame" x="159" y="228" width="227" height="30"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WjD-1U-pLi" userLabel="Not Current User">
+                                                            <rect key="frame" x="159" y="261" width="187" height="30"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fsc-FU-HCm" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="30"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osO-yN-EGh" userLabel="Message" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                                                     <color key="backgroundColor" red="0.47543234080000002" green="0.47625346699999999" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="90" id="Bhd-Ul-CUP"/>
-                                                                        <constraint firstAttribute="height" constant="30" id="LMs-hn-uNn"/>
+                                                                        <constraint firstAttribute="width" constant="50" id="HCK-pI-Kmv"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="RxV-zz-R2h"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="13"/>
-                                                                    <state key="normal" title="MESSAGE">
+                                                                    <state key="normal" image="message">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <action selector="messagePostingUser:" destination="Kp2-hW-iOl" eventType="touchUpInside" id="QDd-Dh-TxB"/>
+                                                                        <action selector="messagePostingUser:" destination="Kp2-hW-iOl" eventType="touchUpInside" id="Ebj-fQ-IWz"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UK4-ai-Zjz" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
-                                                                    <rect key="frame" x="100" y="0.0" width="127" height="30"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyQ-hO-3Cs" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
+                                                                    <rect key="frame" x="60" y="0.0" width="127" height="30"/>
                                                                     <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="0.69931490380000005" colorSpace="calibratedRGB"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="30" id="L6u-rF-eo7"/>
-                                                                        <constraint firstAttribute="width" constant="127" id="jsl-p8-OKi"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="Klk-Vx-fBq"/>
+                                                                        <constraint firstAttribute="width" constant="127" id="ZIT-no-kcd"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="13"/>
                                                                     <state key="normal" title="I'M INTERESTED">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
-                                                                    <connections>
-                                                                        <action selector="applyToGig:" destination="Kp2-hW-iOl" eventType="touchUpInside" id="ywV-WU-H0x"/>
-                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="gvH-1A-cYz">
-                                                            <rect key="frame" x="32" y="52" width="504" height="25"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="g6h-d1-uL7">
+                                                            <rect key="frame" x="8" y="83" width="528" height="25"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location-pin" translatesAutoresizingMaskIntoConstraints="NO" id="h9r-AK-Lpa">
+                                                                    <rect key="frame" x="0.0" y="5" width="18" height="15"/>
+                                                                    <color key="tintColor" red="0.6135312477" green="0.62785830440000001" blue="0.62811458330000003" alpha="0.83893028849999995" colorSpace="calibratedRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="15" id="2GS-aD-g4c"/>
+                                                                        <constraint firstAttribute="width" constant="18" id="SQe-oz-End"/>
+                                                                        <constraint firstAttribute="height" constant="18" id="h2o-FV-y76"/>
+                                                                    </constraints>
+                                                                    <variation key="default">
+                                                                        <mask key="constraints">
+                                                                            <exclude reference="h2o-FV-y76"/>
+                                                                        </mask>
+                                                                    </variation>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="dYM-n1-ztg">
+                                                                    <rect key="frame" x="24" y="0.0" width="504" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="25" id="rQe-e8-lLc"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
+                                                                    <color key="textColor" red="0.6135312477" green="0.62785830440000001" blue="0.62811458330000003" alpha="0.83893028849999995" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="25" id="ncG-dI-eKW"/>
+                                                                <constraint firstAttribute="height" constant="25" id="Ue3-iu-x7d"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="14"/>
-                                                            <color key="textColor" red="0.6135312477" green="0.62785830440000001" blue="0.62811458330000003" alpha="0.83893028849999995" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location-pin" translatesAutoresizingMaskIntoConstraints="NO" id="mVW-gJ-7Oz">
-                                                            <rect key="frame" x="8" y="54" width="18" height="18"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="18" id="doT-jx-nWw"/>
-                                                                <constraint firstAttribute="width" constant="18" id="wRS-tk-NKa"/>
-                                                            </constraints>
-                                                        </imageView>
+                                                        </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="mVW-gJ-7Oz" firstAttribute="leading" secondItem="hsN-Z3-axy" secondAttribute="leading" constant="8" id="0SI-u4-hdd"/>
-                                                        <constraint firstItem="o9s-2k-Lza" firstAttribute="top" secondItem="n39-kH-NiY" secondAttribute="bottom" constant="8" id="1wB-Iy-anm"/>
-                                                        <constraint firstItem="Aer-2x-dOp" firstAttribute="top" secondItem="hsN-Z3-axy" secondAttribute="top" constant="8" id="7Bk-1C-Ycb"/>
-                                                        <constraint firstItem="gvH-1A-cYz" firstAttribute="top" secondItem="mVW-gJ-7Oz" secondAttribute="top" constant="-2" id="8tK-Aj-RXp"/>
-                                                        <constraint firstItem="n39-kH-NiY" firstAttribute="leading" secondItem="hsN-Z3-axy" secondAttribute="leading" constant="8" id="Bd5-VM-EgG"/>
-                                                        <constraint firstItem="n39-kH-NiY" firstAttribute="top" secondItem="Aer-2x-dOp" secondAttribute="bottom" id="WMI-aE-5iG"/>
-                                                        <constraint firstItem="Aer-2x-dOp" firstAttribute="leading" secondItem="hsN-Z3-axy" secondAttribute="leading" constant="8" id="Xse-k7-kgb"/>
-                                                        <constraint firstAttribute="trailing" secondItem="o9s-2k-Lza" secondAttribute="trailing" constant="8" id="aDj-nf-C7y"/>
-                                                        <constraint firstItem="n39-kH-NiY" firstAttribute="top" secondItem="gvH-1A-cYz" secondAttribute="bottom" constant="1" id="alS-ru-abw"/>
-                                                        <constraint firstItem="mVW-gJ-7Oz" firstAttribute="top" secondItem="Aer-2x-dOp" secondAttribute="bottom" id="ama-dG-Pc3"/>
-                                                        <constraint firstItem="gvH-1A-cYz" firstAttribute="top" secondItem="Aer-2x-dOp" secondAttribute="bottom" constant="-4" id="dtA-y1-WlK"/>
-                                                        <constraint firstItem="KaS-2f-PEd" firstAttribute="centerX" secondItem="hsN-Z3-axy" secondAttribute="centerX" id="eze-Ib-KGi"/>
-                                                        <constraint firstItem="o9s-2k-Lza" firstAttribute="leading" secondItem="hsN-Z3-axy" secondAttribute="leading" constant="8" id="hFm-Wh-BIJ"/>
-                                                        <constraint firstItem="gvH-1A-cYz" firstAttribute="leading" secondItem="hsN-Z3-axy" secondAttribute="leading" constant="32" id="pjV-R2-Sot"/>
-                                                        <constraint firstAttribute="trailing" secondItem="n39-kH-NiY" secondAttribute="trailing" constant="8" id="vP5-4E-1ri"/>
-                                                        <constraint firstItem="KaS-2f-PEd" firstAttribute="top" secondItem="o9s-2k-Lza" secondAttribute="bottom" constant="15" id="vqP-xs-5t0"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Aer-2x-dOp" secondAttribute="trailing" constant="8" id="w3U-Wu-GT2"/>
-                                                        <constraint firstAttribute="trailing" secondItem="gvH-1A-cYz" secondAttribute="trailing" constant="8" id="zYw-wk-YPz"/>
+                                                        <constraint firstItem="WjD-1U-pLi" firstAttribute="top" secondItem="7hS-2d-3eC" secondAttribute="bottom" constant="15" id="2a4-kH-A3K"/>
+                                                        <constraint firstItem="5ds-Tb-ZUE" firstAttribute="leading" secondItem="lvF-56-gZd" secondAttribute="leading" constant="8" id="65a-JZ-YyC"/>
+                                                        <constraint firstItem="7hS-2d-3eC" firstAttribute="top" secondItem="5ds-Tb-ZUE" secondAttribute="bottom" constant="8" id="6dO-HL-9pY"/>
+                                                        <constraint firstAttribute="trailing" secondItem="g6h-d1-uL7" secondAttribute="trailing" constant="8" id="FYd-aA-ZPQ"/>
+                                                        <constraint firstItem="g6h-d1-uL7" firstAttribute="leading" secondItem="lvF-56-gZd" secondAttribute="leading" constant="8" id="KZY-Ee-yQn"/>
+                                                        <constraint firstAttribute="trailing" secondItem="hHL-Yc-446" secondAttribute="trailing" constant="-10" id="OGh-Lm-UnZ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="7hS-2d-3eC" secondAttribute="trailing" constant="8" id="PZ3-MS-XzY"/>
+                                                        <constraint firstItem="hHL-Yc-446" firstAttribute="leading" secondItem="lvF-56-gZd" secondAttribute="leading" id="QgQ-d3-yc9"/>
+                                                        <constraint firstItem="hHL-Yc-446" firstAttribute="top" secondItem="lvF-56-gZd" secondAttribute="top" id="Qlc-9M-fbq"/>
+                                                        <constraint firstAttribute="trailing" secondItem="JX6-fJ-0zL" secondAttribute="trailing" constant="8" id="SAv-Hx-uGE"/>
+                                                        <constraint firstItem="WjD-1U-pLi" firstAttribute="centerX" secondItem="lvF-56-gZd" secondAttribute="centerX" id="Zsq-TT-6Ei"/>
+                                                        <constraint firstItem="JX6-fJ-0zL" firstAttribute="top" secondItem="hHL-Yc-446" secondAttribute="bottom" constant="10" id="aC0-cM-c2s"/>
+                                                        <constraint firstAttribute="bottom" secondItem="WjD-1U-pLi" secondAttribute="bottom" constant="12" id="aFk-M5-00b"/>
+                                                        <constraint firstItem="5ds-Tb-ZUE" firstAttribute="top" secondItem="g6h-d1-uL7" secondAttribute="bottom" constant="5" id="f0c-xO-Yij"/>
+                                                        <constraint firstItem="JX6-fJ-0zL" firstAttribute="leading" secondItem="lvF-56-gZd" secondAttribute="leading" constant="8" id="fKb-Qk-leu"/>
+                                                        <constraint firstItem="7hS-2d-3eC" firstAttribute="leading" secondItem="lvF-56-gZd" secondAttribute="leading" constant="8" id="kJD-ii-vzH"/>
+                                                        <constraint firstAttribute="trailing" secondItem="5ds-Tb-ZUE" secondAttribute="trailing" constant="8" id="qfC-yc-gj1"/>
+                                                        <constraint firstItem="g6h-d1-uL7" firstAttribute="top" secondItem="JX6-fJ-0zL" secondAttribute="bottom" constant="8" id="xij-kq-qj0"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hBh-qF-0Lg" userLabel="Layer">
+                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="55"/>
+                                                    <color key="backgroundColor" red="0.31691533659999999" green="0.30821031399999999" blue="0.47887071079999999" alpha="0.018605769229999999" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="55" id="V15-gn-AL5"/>
+                                                        <constraint firstAttribute="height" constant="1" id="WqB-wB-mrL"/>
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="ama-dG-Pc3"/>
-                                                            <exclude reference="WMI-aE-5iG"/>
+                                                            <exclude reference="WqB-wB-mrL"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hsN-Z3-axy" firstAttribute="top" secondItem="hT2-cH-Rs5" secondAttribute="topMargin" id="LXO-7h-72c"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="hsN-Z3-axy" secondAttribute="trailing" id="XET-m8-Ecg"/>
-                                                <constraint firstItem="hsN-Z3-axy" firstAttribute="leading" secondItem="hT2-cH-Rs5" secondAttribute="leadingMargin" id="cBg-D2-wYf"/>
-                                                <constraint firstItem="hsN-Z3-axy" firstAttribute="bottom" secondItem="hT2-cH-Rs5" secondAttribute="bottomMargin" id="pcL-3V-yd1"/>
+                                                <constraint firstItem="lvF-56-gZd" firstAttribute="leading" secondItem="eD5-XM-8I0" secondAttribute="leadingMargin" constant="20" id="9Y6-oB-jyC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lvF-56-gZd" secondAttribute="trailing" constant="20" id="HJs-kL-MfC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hBh-qF-0Lg" secondAttribute="trailing" constant="-8" id="P7G-Jt-HBV"/>
+                                                <constraint firstItem="lvF-56-gZd" firstAttribute="top" secondItem="eD5-XM-8I0" secondAttribute="topMargin" id="VTh-1x-nws"/>
+                                                <constraint firstItem="lvF-56-gZd" firstAttribute="bottom" secondItem="eD5-XM-8I0" secondAttribute="bottomMargin" id="VxT-g7-zyc"/>
+                                                <constraint firstItem="hBh-qF-0Lg" firstAttribute="top" secondItem="eD5-XM-8I0" secondAttribute="topMargin" constant="-8" id="pMI-qE-DpK"/>
+                                                <constraint firstItem="hBh-qF-0Lg" firstAttribute="leading" secondItem="eD5-XM-8I0" secondAttribute="leadingMargin" constant="-8" id="xyA-Se-L9w"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="applyToGig" destination="UK4-ai-Zjz" id="MIS-fI-wE8"/>
-                                            <outlet property="gigDescription" destination="n39-kH-NiY" id="gjx-RB-jzy"/>
-                                            <outlet property="gigLocation" destination="gvH-1A-cYz" id="LMy-8a-dh3"/>
-                                            <outlet property="gigRate" destination="Ctr-7R-gEQ" id="YJB-3B-HRu"/>
-                                            <outlet property="gigTitle" destination="Lxn-sV-Mo9" id="lBF-R4-rtK"/>
-                                            <outlet property="gigType" destination="FCz-ns-9xx" id="b8m-2S-0Gb"/>
-                                            <outlet property="messageButton" destination="Fsc-FU-HCm" id="WbJ-g4-3if"/>
-                                            <outlet property="userImg" destination="xlN-C7-G9H" id="9wI-tc-BZ7"/>
+                                            <outlet property="applyToGig" destination="gyQ-hO-3Cs" id="dKo-hL-W7n"/>
+                                            <outlet property="gigDescription" destination="5ds-Tb-ZUE" id="Enu-bB-5Hf"/>
+                                            <outlet property="gigLocation" destination="dYM-n1-ztg" id="x2v-4S-Hmk"/>
+                                            <outlet property="gigRate" destination="nON-7Q-VJm" id="0uk-Ql-Bw7"/>
+                                            <outlet property="gigTitle" destination="JX6-fJ-0zL" id="Zdb-hx-Vah"/>
+                                            <outlet property="gigType" destination="8mF-Wu-CU9" id="zaJ-1Q-sAW"/>
+                                            <outlet property="messageButton" destination="osO-yN-EGh" id="HId-2t-Tgn"/>
+                                            <outlet property="userImg" destination="KAc-gT-etc" id="0KO-tc-9JZ"/>
+                                            <outlet property="userName" destination="mdh-w5-zuD" id="PIO-FB-MYg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3487,8 +3543,8 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                         <constraints>
                             <constraint firstItem="A4x-fo-F4D" firstAttribute="top" secondItem="Abh-ts-PTZ" secondAttribute="bottom" id="BPi-yq-bBV"/>
                             <constraint firstItem="Abh-ts-PTZ" firstAttribute="top" secondItem="lsf-Eb-miP" secondAttribute="bottom" id="DjU-qq-Pru"/>
-                            <constraint firstItem="Abh-ts-PTZ" firstAttribute="leading" secondItem="Odg-kZ-Hm3" secondAttribute="leadingMargin" id="Ya4-Dg-hL6"/>
-                            <constraint firstItem="Abh-ts-PTZ" firstAttribute="trailing" secondItem="Odg-kZ-Hm3" secondAttribute="trailingMargin" id="cCA-CV-MQR"/>
+                            <constraint firstItem="Abh-ts-PTZ" firstAttribute="leading" secondItem="Odg-kZ-Hm3" secondAttribute="leadingMargin" constant="-20" id="Ya4-Dg-hL6"/>
+                            <constraint firstItem="Abh-ts-PTZ" firstAttribute="trailing" secondItem="Odg-kZ-Hm3" secondAttribute="trailingMargin" constant="20" id="cCA-CV-MQR"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3521,7 +3577,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who applied" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qom-FW-dYv" userLabel="Who Applied">
-                                <rect key="frame" x="20" y="289" width="560" height="28"/>
+                                <rect key="frame" x="20" y="269" width="560" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Zdk-iR-RDh"/>
                                 </constraints>
@@ -3539,7 +3595,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="79f-4q-f0l">
-                                <rect key="frame" x="20" y="208" width="560" height="28"/>
+                                <rect key="frame" x="20" y="188" width="560" height="28"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgN-yv-HJT">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="28"/>
@@ -3559,41 +3615,44 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YT-6i-JSO" userLabel="Description">
-                                <rect key="frame" x="20" y="73" width="560" height="120"/>
+                                <rect key="frame" x="20" y="73" width="560" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="d4w-Ph-l5X"/>
+                                    <constraint firstAttribute="height" constant="90" id="d4w-Ph-l5X"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="d4w-Ph-l5X"/>
+                                    </mask>
+                                </variation>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KU8-wg-6jZ" userLabel="Edit/Delete">
-                                <rect key="frame" x="187" y="244" width="227" height="30"/>
+                                <rect key="frame" x="245" y="224" width="110" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9B-Bf-QcU" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="90" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9B-Bf-QcU" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                         <color key="backgroundColor" red="0.41568627450980389" green="0.41568627450980389" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="50X-ng-383"/>
-                                            <constraint firstAttribute="width" constant="90" id="YQU-oE-8Qz"/>
+                                            <constraint firstAttribute="width" constant="50" id="YQU-oE-8Qz"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="13"/>
-                                        <state key="normal" title="EDIT">
+                                        <state key="normal" image="pencil">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="editButtonPressed:" destination="Jsg-dk-baH" eventType="touchUpInside" id="w2i-Ye-saC"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tj-dw-vkm" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
-                                        <rect key="frame" x="100" y="0.0" width="127" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tj-dw-vkm" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
+                                        <rect key="frame" x="60" y="0.0" width="50" height="30"/>
                                         <color key="backgroundColor" red="0.82321875" green="0.0" blue="0.1023131269" alpha="0.70110576923076928" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="HyL-r7-BrH"/>
-                                            <constraint firstAttribute="width" constant="127" id="rj1-hg-plz"/>
+                                            <constraint firstAttribute="width" constant="50" id="rj1-hg-plz"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="13"/>
-                                        <state key="normal" title="DELETE">
+                                        <state key="normal" image="trash">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -3603,7 +3662,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SEQ-Nr-o3m">
-                                <rect key="frame" x="20" y="325" width="560" height="191"/>
+                                <rect key="frame" x="20" y="305" width="560" height="211"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WhoAppliedCell" rowHeight="100" id="dKe-wC-Qx3" customClass="WhoAppliedCell" customModule="Gigr" customModuleProvider="target">
@@ -3658,7 +3717,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="30i-7g-dvi">
-                                <rect key="frame" x="20" y="208" width="560" height="28"/>
+                                <rect key="frame" x="20" y="188" width="560" height="28"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Rate" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="egG-2C-loz" userLabel="Edit Rate">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="28"/>
@@ -3686,24 +3745,23 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                                 </constraints>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PPT-K5-w7h" userLabel="Edit Description">
-                                <rect key="frame" x="20" y="73" width="560" height="120"/>
+                                <rect key="frame" x="20" y="73" width="560" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="DXK-7Q-3MI"/>
+                                    <constraint firstAttribute="height" constant="100" id="ryy-N9-Fz5"/>
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyv-Yh-Eof" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
-                                <rect key="frame" x="255" y="244" width="90" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyv-Yh-Eof" customClass="MaterialButton" customModule="Gigr" customModuleProvider="target">
+                                <rect key="frame" x="275" y="224" width="50" height="30"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="0.77919471153846154" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="90" id="KfD-5x-mA7"/>
+                                    <constraint firstAttribute="width" constant="50" id="KfD-5x-mA7"/>
                                     <constraint firstAttribute="height" constant="30" id="wvM-YQ-3CD"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="13"/>
-                                <state key="normal" title="DONE">
+                                <state key="normal" image="done">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -3715,6 +3773,8 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="yyv-Yh-Eof" firstAttribute="centerX" secondItem="iM0-aw-rnr" secondAttribute="centerX" id="0yd-lN-vWi"/>
+                            <constraint firstItem="PPT-K5-w7h" firstAttribute="top" secondItem="xdA-S3-4a6" secondAttribute="bottom" constant="8" id="2S3-yO-nzD"/>
+                            <constraint firstItem="PPT-K5-w7h" firstAttribute="leading" secondItem="iM0-aw-rnr" secondAttribute="leadingMargin" id="3Ue-1M-EaB"/>
                             <constraint firstItem="He7-RV-nN3" firstAttribute="leading" secondItem="xdA-S3-4a6" secondAttribute="leading" id="4Nh-eT-sh2"/>
                             <constraint firstItem="SEQ-Nr-o3m" firstAttribute="top" secondItem="qom-FW-dYv" secondAttribute="bottom" constant="8" id="4wd-g1-mLY"/>
                             <constraint firstItem="Zfx-Uh-Hsu" firstAttribute="top" secondItem="SEQ-Nr-o3m" secondAttribute="bottom" constant="20" id="4yA-7Q-NP5"/>
@@ -3723,10 +3783,15 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                             <constraint firstItem="He7-RV-nN3" firstAttribute="trailing" secondItem="iM0-aw-rnr" secondAttribute="trailingMargin" id="73Q-Wx-x5l"/>
                             <constraint firstItem="79f-4q-f0l" firstAttribute="top" secondItem="2YT-6i-JSO" secondAttribute="bottom" constant="15" id="8xh-BE-mBj"/>
                             <constraint firstItem="79f-4q-f0l" firstAttribute="leading" secondItem="iM0-aw-rnr" secondAttribute="leadingMargin" id="Bce-Ic-dHk"/>
+                            <constraint firstItem="PPT-K5-w7h" firstAttribute="height" secondItem="2YT-6i-JSO" secondAttribute="height" id="DRQ-dc-6BC"/>
                             <constraint firstItem="qom-FW-dYv" firstAttribute="top" secondItem="KU8-wg-6jZ" secondAttribute="bottom" constant="15" id="Egz-Z2-QeZ"/>
                             <constraint firstItem="He7-RV-nN3" firstAttribute="top" secondItem="dMI-xJ-K8c" secondAttribute="bottom" constant="1" id="FWv-a8-XAW"/>
                             <constraint firstItem="KU8-wg-6jZ" firstAttribute="centerX" secondItem="iM0-aw-rnr" secondAttribute="centerX" id="Jh2-Th-Uj9"/>
                             <constraint firstItem="PPT-K5-w7h" firstAttribute="leading" secondItem="iM0-aw-rnr" secondAttribute="leadingMargin" id="MPR-VJ-nqk"/>
+                            <constraint firstItem="PPT-K5-w7h" firstAttribute="trailing" secondItem="iM0-aw-rnr" secondAttribute="trailingMargin" id="N4b-N7-tNY"/>
+                            <constraint firstItem="PPT-K5-w7h" firstAttribute="top" secondItem="2YT-6i-JSO" secondAttribute="top" id="Ni7-Tz-AKb"/>
+                            <constraint firstItem="PPT-K5-w7h" firstAttribute="trailing" secondItem="2YT-6i-JSO" secondAttribute="trailing" id="OL2-nY-Km7"/>
+                            <constraint firstItem="PPT-K5-w7h" firstAttribute="leading" secondItem="2YT-6i-JSO" secondAttribute="leading" id="TYM-gx-Vdy"/>
                             <constraint firstItem="He7-RV-nN3" firstAttribute="bottom" secondItem="xdA-S3-4a6" secondAttribute="bottom" id="Th8-0u-9SR"/>
                             <constraint firstItem="qom-FW-dYv" firstAttribute="trailing" secondItem="iM0-aw-rnr" secondAttribute="trailingMargin" id="U98-bb-jhy"/>
                             <constraint firstItem="qom-FW-dYv" firstAttribute="leading" secondItem="iM0-aw-rnr" secondAttribute="leadingMargin" id="UQ1-Uy-F90"/>
@@ -3738,9 +3803,11 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                             <constraint firstItem="2YT-6i-JSO" firstAttribute="leading" secondItem="iM0-aw-rnr" secondAttribute="leadingMargin" id="bsb-l9-b5X"/>
                             <constraint firstItem="2YT-6i-JSO" firstAttribute="top" secondItem="He7-RV-nN3" secondAttribute="bottom" constant="8" id="csU-Rx-uez"/>
                             <constraint firstItem="SEQ-Nr-o3m" firstAttribute="trailing" secondItem="iM0-aw-rnr" secondAttribute="trailingMargin" id="dmV-4T-hfg"/>
+                            <constraint firstItem="PPT-K5-w7h" firstAttribute="bottom" secondItem="2YT-6i-JSO" secondAttribute="bottom" id="e1P-pd-nzL"/>
                             <constraint firstItem="rkj-Hw-PFW" firstAttribute="bottom" secondItem="dMI-xJ-K8c" secondAttribute="bottom" id="fBJ-o7-2aN"/>
                             <constraint firstItem="yyv-Yh-Eof" firstAttribute="top" secondItem="cK6-vO-Edn" secondAttribute="bottom" constant="244" id="fYf-UE-hZI"/>
                             <constraint firstItem="rkj-Hw-PFW" firstAttribute="leading" secondItem="dMI-xJ-K8c" secondAttribute="leading" id="fsU-9s-99Y"/>
+                            <constraint firstItem="30i-7g-dvi" firstAttribute="top" secondItem="PPT-K5-w7h" secondAttribute="bottom" constant="15" id="gkx-f2-0rN"/>
                             <constraint firstItem="dMI-xJ-K8c" firstAttribute="top" secondItem="cK6-vO-Edn" secondAttribute="bottom" constant="8" id="irS-av-tMX"/>
                             <constraint firstItem="rkj-Hw-PFW" firstAttribute="trailing" secondItem="dMI-xJ-K8c" secondAttribute="trailing" id="khW-Ue-heY"/>
                             <constraint firstItem="SEQ-Nr-o3m" firstAttribute="leading" secondItem="iM0-aw-rnr" secondAttribute="leadingMargin" id="mIi-ei-AfG"/>
@@ -3751,6 +3818,7 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                             <constraint firstItem="qom-FW-dYv" firstAttribute="top" secondItem="KU8-wg-6jZ" secondAttribute="bottom" constant="15" id="szm-6I-Kpr"/>
                             <constraint firstItem="30i-7g-dvi" firstAttribute="top" secondItem="79f-4q-f0l" secondAttribute="top" id="tGj-6z-IaK"/>
                             <constraint firstItem="He7-RV-nN3" firstAttribute="trailing" secondItem="xdA-S3-4a6" secondAttribute="trailing" id="uJr-nA-aj6"/>
+                            <constraint firstItem="yyv-Yh-Eof" firstAttribute="top" secondItem="30i-7g-dvi" secondAttribute="bottom" constant="8" id="vBb-Dd-adk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="30i-7g-dvi" secondAttribute="trailing" id="vv8-eI-FXb"/>
                             <constraint firstItem="30i-7g-dvi" firstAttribute="leading" secondItem="iM0-aw-rnr" secondAttribute="leadingMargin" id="wEF-fK-Ejs"/>
                             <constraint firstItem="PPT-K5-w7h" firstAttribute="bottom" secondItem="2YT-6i-JSO" secondAttribute="bottom" id="x5e-C6-ouu"/>
@@ -3758,9 +3826,18 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="52y-lj-OME"/>
+                                <exclude reference="DRQ-dc-6BC"/>
+                                <exclude reference="MPR-VJ-nqk"/>
+                                <exclude reference="Ni7-Tz-AKb"/>
+                                <exclude reference="OL2-nY-Km7"/>
+                                <exclude reference="TYM-gx-Vdy"/>
+                                <exclude reference="aJA-4O-GPa"/>
+                                <exclude reference="e1P-pd-nzL"/>
                                 <exclude reference="x5e-C6-ouu"/>
                                 <exclude reference="ZKt-pF-rj9"/>
                                 <exclude reference="szm-6I-Kpr"/>
+                                <exclude reference="fYf-UE-hZI"/>
                             </mask>
                         </variation>
                     </view>
@@ -3810,6 +3887,8 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
     <resources>
         <image name="blurbkg1" width="1080" height="720"/>
         <image name="cross" width="20" height="19"/>
+        <image name="done" width="20" height="16"/>
+        <image name="edit" width="25" height="23"/>
         <image name="filtersicon" width="25" height="23"/>
         <image name="flag" width="20" height="21"/>
         <image name="heart-empty" width="40" height="36"/>
@@ -3819,16 +3898,17 @@ The Agreement constitutes the entire agreement between you and Gigr regarding yo
         <image name="logofinalgigr" width="393" height="148"/>
         <image name="message" width="20" height="14"/>
         <image name="password" width="18" height="20"/>
+        <image name="pencil" width="20" height="20"/>
         <image name="placeholderImg" width="1500" height="1500"/>
         <image name="postsgo" width="650" height="650"/>
-        <image name="postsicon" width="25" height="22"/>
+        <image name="trash" width="15" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nXR-cF-YML"/>
-        <segue reference="bMV-u6-Utk"/>
-        <segue reference="evZ-Al-Czy"/>
-        <segue reference="tOT-n4-ixJ"/>
+        <segue reference="G5r-XY-QFs"/>
         <segue reference="3Ha-R1-SFR"/>
+        <segue reference="tOT-n4-ixJ"/>
+        <segue reference="yJQ-C0-crf"/>
+        <segue reference="bMV-u6-Utk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.6135312477" green="0.62785830440000001" blue="0.62811458330000003" alpha="0.83893028849999995" colorSpace="calibratedRGB"/>
 </document>

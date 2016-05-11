@@ -107,6 +107,12 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
+    
+    self.tableViewGigs.estimatedRowHeight = 270
+    self.tableViewGigs.rowHeight = UITableViewAutomaticDimension
+    self.tableViewGigs.setNeedsLayout()
+    self.tableViewGigs.layoutIfNeeded()
+    
     let pickedCategory = NSUserDefaults.standardUserDefaults().objectForKey("category") as? String
     let selectedCity = NSUserDefaults.standardUserDefaults().objectForKey("location") as? String
     if let pickedCategory = pickedCategory {
@@ -219,10 +225,10 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
       } else {
         return 155
       }
-      
-    } else if tableView == tableViewGigs {
-      return 320
     }
+//    } else if tableView == tableViewGigs {
+//      return 320
+//    }
     return UITableViewAutomaticDimension
   }
   
