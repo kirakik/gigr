@@ -85,6 +85,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     userImg.clipsToBounds = true
     
     hideKeyboardWhenTappedAround()
+    let userDataKeysArr = ["email", "category", "name", "city", "userImg", "tagline", "shortDesc", "skills", "availabilities", "linkedin"]
+
     retrieveUserInfo()
   }
   
@@ -243,92 +245,71 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
       if snapshot.value is NSNull {
         
       } else {
-        if let currentUserEmail = snapshot.value.objectForKey("email") as? String {
-          if currentUserEmail != "" {
-            self.currentUserEmail = currentUserEmail
-          } else {
-            self.currentUserEmail = ""
-          }
+        guard let currentEmail = snapshot.value.objectForKey("email") as? String else {
+          self.currentUserEmail = ""
+          return
         }
         
-        if let currentUserCategory = snapshot.value.objectForKey("category") as? String {
-          if currentUserCategory != "" {
-            self.categoryField.text = currentUserCategory
-          } else {
-            self.categoryField.text = ""
-          }
+        guard let currentUserImage = snapshot.value.objectForKey("userImg") as? String else {
+          self.currentUserImage = ""
+          return
         }
         
-        if let currentUserName = snapshot.value.objectForKey("name") as? String {
-          if currentUserName != "" {
-            self.fullNameField.text = currentUserName
-          } else {
-            self.fullNameField.text = ""
-          }
+        guard let currentUserCategory = snapshot.value.objectForKey("category") as? String else {
+          self.categoryField.text = ""
+          return
         }
         
-        if self.selectedCity == nil {
-          if let currentUserCity = snapshot.value.objectForKey("city") as? String {
-            if currentUserCity != "" {
-              self.cityField.text = currentUserCity
-            }
-          } else {
-            self.cityField.text = ""
-          }
-        } else {
+        guard let currentUserName = snapshot.value.objectForKey("name") as? String else {
+          self.fullNameField.text = ""
+          return
+        }
+        
+        guard self.selectedCity == nil else {
           self.cityField.text = self.selectedCity
+          return
         }
         
-        if let currentUserImage = snapshot.value.objectForKey("userImg") as? String {
-          if currentUserImage != "" {
-            self.currentUserImage = currentUserImage
-          } else {
-            self.currentUserImage = ""
-          }
+        guard let currentUserCity = snapshot.value.objectForKey("city") as? String else {
+          self.cityField.text = ""
+          return
         }
         
-        if let currentUserJob = snapshot.value.objectForKey("tagline") as? String {
-          if currentUserJob != "" {
-            self.jobField.text = currentUserJob
-          } else {
-            self.jobField.text = ""
-          }
+        guard let currentUserJob = snapshot.value.objectForKey("tagline") as? String else {
+          self.jobField.text = ""
+          return
         }
         
-        if let currentUserShortDesc = snapshot.value.objectForKey("shortDesc") as? String {
-          if currentUserShortDesc != "" {
-            self.shortDescField.text = currentUserShortDesc
-          } else {
-            self.shortDescField.text = ""
-          }
+        guard let currentUserDesc = snapshot.value.objectForKey("shortDesc") as? String else {
+          self.skillsField.text = ""
+          return
         }
         
-        if let currentUserSkills = snapshot.value.objectForKey("skills") as? String {
-          if currentUserSkills != "" {
-            self.skillsField.text = currentUserSkills
-          } else {
-            self.skillsField.text = ""
-          }
+        guard let currentUserSkills = snapshot.value.objectForKey("skills") as? String else {
+          self.skillsField.text = ""
+          return
         }
         
-        if let currentUserAvailabilities = snapshot.value.objectForKey("availabilities") as? String {
-          if currentUserAvailabilities != "" {
-            self.availabilitiesField.text = currentUserAvailabilities
-          } else {
-            self.availabilitiesField.text = ""
-          }
+        guard let currentUserAvailabilities = snapshot.value.objectForKey("availabilities") as? String else {
+          self.availabilitiesField.text = ""
+          return
+        }
+
+        guard let currentUserLinkedin = snapshot.value.objectForKey("linkedin") as? String else {
+          self.linkedinAccount.text = ""
+          return
         }
         
-        if let currentUserLinkedin = snapshot.value.objectForKey("linkedin") as? String {
-          if currentUserLinkedin != "http://linkedin.com/in/" {
-            self.linkedinAccount.text = currentUserLinkedin
-          } else {
-            self.linkedinAccount.text = "http://linkedin.com/in/"
-          }
-        } else {
-          self.linkedinAccount.text = "http://linkedin.com/in/"
-        }
-        
+        self.currentUserEmail = currentEmail
+        self.currentUserImage = currentUserImage
+        self.categoryField.text = currentUserCategory
+        self.fullNameField.text = currentUserName
+        self.cityField.text = currentUserCity
+        self.jobField.text = currentUserJob
+        self.shortDescField.text = currentUserDesc
+        self.skillsField.text = currentUserSkills
+        self.availabilitiesField.text = currentUserAvailabilities
+        self.linkedinAccount.text = currentUserLinkedin
       }
     }, withCancelBlock: { error in
       print(error.description)
@@ -341,6 +322,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
       } else {
         let userType = snapshot.value as? String
+                
         if userType == "Gig Poster" {
           self.segmentedControl.selectedSegmentIndex = 1
           self.segmentedControl.sendActionsForControlEvents(.ValueChanged)
@@ -355,15 +337,21 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     })
   }
   
-  /** FUNCTIONS POSTING TO FIREBASE **/
+  /** POSTING TO FIREBASE FUNCTIONS **/
   func postToFirebase(imgUrl: String?) {
     
     SwiftSpinner.showWithDuration(1, title: "Saving...")
     
     var user: Dictionary<String, String>
+    var userCat = [String: String]()
     
-    if selectedUserType != "Gig Poster" {
-      
+    if selectedUserType == "Gig Poster" {
+      user = [
+        "userType": selectedUserType,
+        "name": fullNameField.text!,
+        "city": cityField.text!,
+      ]
+    } else {
       user = [
         "userType": selectedUserType,
         "name": fullNameField.text!,
@@ -375,150 +363,137 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         "availabilities": availabilitiesField.text!,
         "linkedin": linkedinAccount.text!
       ]
-      
-    } else {
-      
-      user = [
-        "userType": selectedUserType,
-        "name": fullNameField.text!,
-        "city": cityField.text!,
-      ]
-      
     }
-        
-    if imgUrl != nil {
-      user["userImg"] = imgUrl!
-    } else {
-      if currentUserImage != "" {
-        user["userImg"] = currentUserImage
-      } else {
-        user["userImg"] = "https://imagizer.imageshack.us/v2/376x376q90/924/DmsKSf.jpg"
-      }
+    
+    guard currentUserImage != "" else {
+      user["userImg"] = "https://imagizer.imageshack.us/v2/376x376q90/924/DmsKSf.jpg"
+      userCat["userImg"] = "https://imagizer.imageshack.us/v2/376x376q90/924/DmsKSf.jpg"
+      return
     }
+    
+    guard imgUrl != nil else {
+      user["userImg"] = currentUserImage
+      userCat["userImg"] = currentUserImage
+      return
+    }
+    
+    user["userImg"] = imgUrl!
+    userCat["userImg"] = imgUrl!
     
     DataService.ds.ref_user_current.updateChildValues(user)
     
-    if self.selectedUserType != "Gig Poster" {
-      
-      var userCat: Dictionary<String, String> = [
-        "name": fullNameField.text!,
-        "email": currentUserEmail,
-        "city": cityField.text!,
-        "tagline": jobField.text!,
-        "shortDesc": shortDescField.text!,
-        "skills": skillsField.text!,
-        "availabilities": availabilitiesField.text!,
-        "linkedin": linkedinAccount.text!
-      ]
-      
-      if imgUrl != nil {
-        userCat["userImg"] = imgUrl!
-      } else {
-        if currentUserImage != "" {
-          userCat["userImg"] = currentUserImage
-        } else {
-          userCat["userImg"] = "https://imagizer.imageshack.us/v2/376x376q90/924/DmsKSf.jpg"
-        }
-      }
-      
-      if let category = categoryField.text {
-        switch category {
-        case "Hospitality":
-          updateUserInCategory(hospitality, userInfo: userCat)
-          break
-        case "Customer Service":
-          updateUserInCategory(customer, userInfo: userCat)
-          break
-        case "Artists and Musicians":
-          updateUserInCategory(artists, userInfo: userCat)
-          break
-        case "TV, Media, Fashion":
-          updateUserInCategory(tv, userInfo: userCat)
-          break
-        case "Office Management":
-          updateUserInCategory(office, userInfo: userCat)
-          break
-        case "Child/Pet Care":
-          updateUserInCategory(child, userInfo: userCat)
-          break
-        case "Construction, Contractors":
-          updateUserInCategory(construction, userInfo: userCat)
-          break
-        case "Security":
-          updateUserInCategory(security, userInfo: userCat)
-          break
-        case "Technology/Design":
-          updateUserInCategory(tech, userInfo: userCat)
-          break
-        case "Healthcare":
-          updateUserInCategory(health, userInfo: userCat)
-          break
-        case "Salon/Hair":
-          updateUserInCategory(salon, userInfo: userCat)
-          break
-        case "Sales/Retail":
-          updateUserInCategory(retail, userInfo: userCat)
-          break
-        case "Other":
-          updateUserInCategory(other, userInfo: userCat)
-          break
-        default:
-          break
-        }
-      }
+    //Saving users by category
+    
+    guard self.selectedUserType != "Gig Poster" else {
+      return
+    }
+    
+    userCat = [
+      "name": fullNameField.text!,
+      "email": currentUserEmail,
+      "city": cityField.text!,
+      "tagline": jobField.text!,
+      "shortDesc": shortDescField.text!,
+      "skills": skillsField.text!,
+      "availabilities": availabilitiesField.text!,
+      "linkedin": linkedinAccount.text!
+    ]
+    
+    guard let category = categoryField.text else {
+      return
+    }
+    
+    switch category {
+    case "Hospitality":
+      updateUserInCategory(hospitality, userInfo: userCat)
+      break
+    case "Customer Service":
+      updateUserInCategory(customer, userInfo: userCat)
+      break
+    case "Artists and Musicians":
+      updateUserInCategory(artists, userInfo: userCat)
+      break
+    case "TV, Media, Fashion":
+      updateUserInCategory(tv, userInfo: userCat)
+      break
+    case "Office Management":
+      updateUserInCategory(office, userInfo: userCat)
+      break
+    case "Child/Pet Care":
+      updateUserInCategory(child, userInfo: userCat)
+      break
+    case "Construction, Contractors":
+      updateUserInCategory(construction, userInfo: userCat)
+      break
+    case "Security":
+      updateUserInCategory(security, userInfo: userCat)
+      break
+    case "Technology/Design":
+      updateUserInCategory(tech, userInfo: userCat)
+      break
+    case "Healthcare":
+      updateUserInCategory(health, userInfo: userCat)
+      break
+    case "Salon/Hair":
+      updateUserInCategory(salon, userInfo: userCat)
+      break
+    case "Sales/Retail":
+      updateUserInCategory(retail, userInfo: userCat)
+      break
+    case "Other":
+      updateUserInCategory(other, userInfo: userCat)
+      break
+    default:
+      break
     }
   }
   
   func saveUser() {
-    if let img = userImg.image where imageSelected == true {
-      
-      let urlString = "https://post.imageshack.us/upload_api.php"
-      let url = NSURL(string: urlString)!
-      let imgData = UIImageJPEGRepresentation(img, 0.2)!
-      let keyData = "Z5UEVH2I46d782e41f8be74f75e4f765621e5e56".dataUsingEncoding(NSUTF8StringEncoding)!
-      let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)!
-      
-      Alamofire.upload(.POST, url, multipartFormData: { multipartFormData -> Void in
-        multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg")
-        multipartFormData.appendBodyPart(data: keyData, name: "key")
-        multipartFormData.appendBodyPart(data: keyJSON, name: "format")
-      }) { encodingResult in
-        
-        switch encodingResult {
-        case .Success(let upload, _, _):
-          upload.responseJSON(completionHandler: { response in
-            
-            if let info = response.result.value as? Dictionary<String, AnyObject> {
-              if let links = info["links"] as? Dictionary<String, AnyObject> {
-                if let imgLink = links["image_link"] as? String {
-                  self.postToFirebase(imgLink)
-                  NSUserDefaults.standardUserDefaults().setObject("Show All Categories", forKey: "category")
-                  NSUserDefaults.standardUserDefaults().setObject(self.cityField.text, forKey: "location")
-                }
-              }
-            }
-            
-          })
-        case .Failure(let error):
-          print(error)
-        }
-      }
-      
-    } else {
-      
+    
+    guard let img = userImg.image where imageSelected == true else {
       NSUserDefaults.standardUserDefaults().setObject("Show All Categories", forKey: "category")
       NSUserDefaults.standardUserDefaults().setObject(self.cityField.text, forKey: "location")
-      
       postToFirebase(nil)
+      return
+    }
+    
+    let urlString = "https://post.imageshack.us/upload_api.php"
+    let url = NSURL(string: urlString)!
+    let imgData = UIImageJPEGRepresentation(img, 0.2)!
+    let keyData = "Z5UEVH2I46d782e41f8be74f75e4f765621e5e56".dataUsingEncoding(NSUTF8StringEncoding)!
+    let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)!
+    
+    Alamofire.upload(.POST, url, multipartFormData: { multipartFormData -> Void in
+      multipartFormData.appendBodyPart(data: imgData, name: "fileupload", fileName: "image", mimeType: "image/jpg")
+      multipartFormData.appendBodyPart(data: keyData, name: "key")
+      multipartFormData.appendBodyPart(data: keyJSON, name: "format")
+    }) { encodingResult in
       
+      switch encodingResult {
+      case .Success(let upload, _, _):
+        upload.responseJSON(completionHandler: { response in
+          guard let info = response.result.value as? Dictionary<String, AnyObject>,
+            let links = info["links"] as? Dictionary<String, AnyObject>,
+            let imgLink = links["image_link"] as? String
+            else {
+              return
+          }
+          
+          self.postToFirebase(imgLink)
+          NSUserDefaults.standardUserDefaults().setObject("Show All Categories", forKey: "category")
+          NSUserDefaults.standardUserDefaults().setObject(self.cityField.text, forKey: "location")
+          
+        })
+      case .Failure(let error):
+        print(error)
+      }
     }
     
-    if self.navigationController != nil {
-      self.navigationController?.popViewControllerAnimated(true)
-    } else {
+    guard self.navigationController != nil else {
       self.dismissViewControllerAnimated(true, completion: nil)
+      return
     }
-    
+    self.navigationController?.popViewControllerAnimated(true)
   }
   
   func updateUserInCategory(category: String, userInfo: Dictionary<String, String>) {
@@ -529,69 +504,49 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
   func deleteAccount(email: String, pwd: String) {
     DataService.ds.ref_base.removeUser(email, password: pwd, withCompletionBlock: { error in
       
-      if error != nil {
+      guard error == nil else {
         print(error.debugDescription)
-        
         SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
           SwiftSpinner.hide()
-        }, subtitle: "Please check your email and password")
-        
-      } else {
-        
-        DataService.ds.ref_user_current.childByAppendingPath("posts").observeEventType(.Value, withBlock: { snapshot in
-          if snapshot.value is NSNull {
-
-          } else {
+          }, subtitle: "Please check your email and password")
+        return
+      }
+      
+      
+      
+      DataService.ds.ref_user_current.childByAppendingPath("posts").observeEventType(.Value, withBlock: { snapshot in
+        if snapshot.value is NSNull {
+          
+        } else {
+          guard let snapshots = snapshot.children.allObjects as? [FDataSnapshot] else {
+            return
+          }
+          for snap in snapshots {
+            guard let posts = DataService.ds.ref_gig_posts.childByAppendingPath(snap.key) else {
+              return
+            }
+            posts.removeValue()
             
-            if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
-              
-              for snap in snapshots {
-                if let posts = DataService.ds.ref_gig_posts.childByAppendingPath(snap.key) {
-                  posts.removeValue()
-                  self.removePostsInCategory(hospitality, postRef: snap.key)
-                  self.removeUserInCategory(hospitality)
-                  self.removePostsInCategory(customer, postRef: snap.key)
-                  self.removeUserInCategory(customer)
-                  self.removePostsInCategory(artists, postRef: snap.key)
-                  self.removeUserInCategory(artists)
-                  self.removePostsInCategory(tv, postRef: snap.key)
-                  self.removeUserInCategory(tv)
-                  self.removePostsInCategory(office, postRef: snap.key)
-                  self.removeUserInCategory(office)
-                  self.removePostsInCategory(child, postRef: snap.key)
-                  self.removeUserInCategory(child)
-                  self.removePostsInCategory(construction, postRef: snap.key)
-                  self.removeUserInCategory(construction)
-                  self.removePostsInCategory(security, postRef: snap.key)
-                  self.removeUserInCategory(security)
-                  self.removePostsInCategory(tech, postRef: snap.key)
-                  self.removeUserInCategory(tech)
-                  self.removePostsInCategory(health, postRef: snap.key)
-                  self.removeUserInCategory(health)
-                  self.removePostsInCategory(salon, postRef: snap.key)
-                  self.removeUserInCategory(salon)
-                  self.removePostsInCategory(retail, postRef: snap.key)
-                  self.removeUserInCategory(retail)
-                  self.removePostsInCategory(other, postRef: snap.key)
-                  self.removeUserInCategory(other)
-                }
-              }
+            let categories = [hospitality, customer, artists, tv, office, child, construction, security, tech, health, salon, retail, other]
+            for category in categories {
+              self.removePostsInCategory(category, postRef: snap.key)
+              self.removeUserInCategory(category)
             }
           }
-        })
-        
-        DataService.ds.ref_user_current.removeValue()
-        DataService.ds.ref_base.unauth()
-        
-        NSUserDefaults.standardUserDefaults().setValue(nil, forKey: key_uid)
-        
-        self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-        
-        if let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC") as? LoginVC {
-          UIApplication.sharedApplication().keyWindow?.rootViewController = loginViewController
         }
-        
+      })
+      
+      DataService.ds.ref_user_current.removeValue()
+      DataService.ds.ref_base.unauth()
+      
+      NSUserDefaults.standardUserDefaults().setValue(nil, forKey: key_uid)
+      
+      self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+      
+      if let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC") as? LoginVC {
+        UIApplication.sharedApplication().keyWindow?.rootViewController = loginViewController
       }
+      
     })
   }
   
@@ -621,17 +576,16 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
     let okAction = UIAlertAction(title: "OK", style: .Default, handler: { action in
       
-      if let email = emailInput!.text where email != "", let password = passwordInput!.text where password != "" {
-        self.deleteAccount(email, pwd: password)
-        
-      } else {
-        
-        SwiftSpinner.showWithDuration(2, title: "Empty Field(s)", animated: false).addTapHandler({
-          SwiftSpinner.hide()
-          }, subtitle: "Password and email required")
-        
+      guard let email = emailInput!.text where email != "",
+        let password = passwordInput!.text where password != ""
+        else {
+          SwiftSpinner.showWithDuration(2, title: "Empty Field(s)", animated: false).addTapHandler({
+            SwiftSpinner.hide()
+            }, subtitle: "Password and email required")
+          return
       }
       
+      self.deleteAccount(email, pwd: password)
     })
     
     textEntryPrompt.addAction(cancelAction)
@@ -655,10 +609,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
   /** GPA FUNCTIONS **/
   override func placeSelected(place: Place) {
     super.placeSelected(place)
-    selectedCity = place.description
-    if selectedCity != nil {
+    guard selectedCity == nil else {
       self.cityField.text = selectedCity
+      return
     }
+    selectedCity = place.description
     dismissViewControllerAnimated(true, completion: nil)
   }
   
@@ -675,12 +630,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
   }
   
   func textViewDidEndEditing(textView: UITextView) {
-    if textView.text.isEmpty {
-      textView.text = "e.g. Needs to be available 3 nights a week and have experience"
-      textView.textColor = veryLightGrayColor
-    } else {
+    guard textView.text.isEmpty else {
       textView.textColor = UIColor.darkGrayColor()
+      return
     }
+    textView.text = "e.g. Needs to be available 3 nights a week and have experience"
+    textView.textColor = veryLightGrayColor
   }
   
   /** IMAGE PICKER FUNCTION **/
@@ -696,18 +651,21 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     let n: Int! = self.navigationController?.viewControllers.count
     let presentingVC = self.navigationController?.viewControllers[n-2]
     let feedGigsVC = self.storyboard?.instantiateViewControllerWithIdentifier("FeedGigsVC")
-    if presentingVC?.nibName == feedGigsVC?.nibName {
-      userTypeLabel.hidden = true
-      segmentedControl.hidden = true
-      categoryField.userInteractionEnabled = false
-      loginRequiredConstraint.priority = 999
-      registerRequiredConstraint.priority = 998
-    } else {
+    
+    guard presentingVC?.nibName == feedGigsVC?.nibName else {
       userTypeLabel.hidden = false
       segmentedControl.hidden = false
       loginRequiredConstraint.priority = 998
       registerRequiredConstraint.priority = 999
+      return
     }
+    
+    userTypeLabel.hidden = true
+    segmentedControl.hidden = true
+    categoryField.userInteractionEnabled = false
+    loginRequiredConstraint.priority = 999
+    registerRequiredConstraint.priority = 998
+    
   }
   
 }

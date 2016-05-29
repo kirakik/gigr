@@ -19,7 +19,6 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
   @IBOutlet weak var orLabel: UILabel!
   @IBOutlet weak var facebookLoginBtn: MaterialButton!
   @IBOutlet weak var emailLoginBtn: MaterialButton!
-  
   @IBOutlet weak var registerLoginSV: UIStackView!
   @IBOutlet weak var loginOption: UIButton!
   @IBOutlet weak var registerOption: UIButton!
@@ -33,19 +32,15 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
   @IBOutlet weak var passwordSV: UIStackView!
   @IBOutlet weak var reenterpasswordSV: UIStackView!
   @IBOutlet weak var reenterPasswordField: MaterialTextField!
-  
   @IBOutlet weak var infoImg: UIImageView!
   @IBOutlet weak var agreementsLabel: UILabel!
   @IBOutlet weak var forgotPaswordButton: UIButton!
   @IBOutlet weak var privacyPolicyButton: UIButton!
   @IBOutlet weak var termsButton: UIButton!
-  
   @IBOutlet weak var backButton: UIButton!
-  
   @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
   @IBOutlet weak var passwordRegisterConstraint: NSLayoutConstraint!
   @IBOutlet weak var passwordLoginConstraint: NSLayoutConstraint!
-  
   @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!
   
   /** PROPERTIES **/
@@ -57,9 +52,7 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
   /** VIEW METHODS **/
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     self.hideKeyboardWhenTappedAround()
-    
     self.animEngine = AnimationEngine(constraints: [stackViewTopConstraint])
 
     emailField.attributedPlaceholder = NSAttributedString(string:"Email", attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
@@ -83,8 +76,14 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     if NSUserDefaults.standardUserDefaults().valueForKey(key_uid) != nil {
-      self.view.hidden = true
       self.performSegueWithIdentifier(segue_login, sender: nil)
+    }
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    if NSUserDefaults.standardUserDefaults().valueForKey(key_uid) != nil {
+      self.view.hidden = true
     }
   }
 
@@ -107,187 +106,164 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     facebookLogin.logInWithReadPermissions(["email"], fromViewController: self) { (facebookResult: FBSDKLoginManagerLoginResult!, facebookError: NSError!) -> Void in
       
-      if facebookError != nil || facebookResult.token == nil {
-        
+      guard facebookError == nil || facebookResult != nil else {
         SwiftSpinner.showWithDuration(1, title: "Facebook Login Failed", animated: false).addTapHandler({
           SwiftSpinner.hide()
         })
-        
-      } else {
-        
-        let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-        
-        DataService.ds.ref_base.authWithOAuthProvider("facebook", token: accessToken, withCompletionBlock: { error, authData in
-          
-          if error != nil {
-            SwiftSpinner.showWithDuration(1, title: "Facebook Login Failed", animated: false).addTapHandler({
-              SwiftSpinner.hide()
-            })
-            
-          } else {
-            
-            let user: Dictionary<String, String> = [
-              "provider": authData.provider!,
-              "name": authData.providerData["displayName"] as! String,
-              "email": authData.providerData["email"] as! String,
-              "userImg": authData.providerData["profileImageURL"] as! String
-            ]
-            
-            DataService.ds.createFirebaseUser(authData.uid, user: user)
-            
-            NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: key_uid)
-            
-            self.performSegueWithIdentifier(segue_registered, sender: nil)
-          }
-        })
+        return
       }
+      
+      let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
+      
+      DataService.ds.ref_base.authWithOAuthProvider("facebook", token: accessToken, withCompletionBlock: { error, authData in
+        
+        guard error == nil else {
+          SwiftSpinner.showWithDuration(1, title: "Facebook Login Failed", animated: false).addTapHandler({
+            SwiftSpinner.hide()
+          })
+          return
+        }
+        
+        let user: Dictionary<String, String> = [
+          "provider": authData.provider!,
+          "name": authData.providerData["displayName"] as! String,
+          "email": authData.providerData["email"] as! String,
+          "userImg": authData.providerData["profileImageURL"] as! String
+        ]
+        
+        DataService.ds.createFirebaseUser(authData.uid, user: user)
+        NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: key_uid)
+        self.performSegueWithIdentifier(segue_registered, sender: nil)
+      })
     }
   }
   
   @IBAction func attemptLogin(sender: UIButton) {
     SwiftSpinner.show("Logging you in...")
     
-    if let email = emailField.text where email != "",
-      let pwd = passwordField.text where pwd != "" {
-      
-      DataService.ds.ref_base.authUser(email, password: pwd, withCompletionBlock: { error, authData in
-        
-        if error != nil {
-          if error.code == status_account_nonexist {
-            
-            SwiftSpinner.showWithDuration(1, title: "This account doesn't exist", animated: false).addTapHandler({
-              SwiftSpinner.hide()
-            }, subtitle: "Please check your email or tap 'register'")
-            
-          } else {
-            
-            SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
-              SwiftSpinner.hide()
-            }, subtitle: "Check your internet connection")
-            
-          }
-          
-          if let errorCode = FAuthenticationError(rawValue: error.code) {
-            switch(errorCode) {
-            case .InvalidEmail:
-              SwiftSpinner.showWithDuration(1, title: "Your email is invalid", animated: false)
-            case .InvalidPassword:
-              SwiftSpinner.showWithDuration(1, title: "Wrong Password", animated: false)
-            default:
-              break
-            }
-          }
-          
-        } else {
-          
-          NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: key_uid)
-          
-          SwiftSpinner.hide({
-            self.performSegueWithIdentifier(segue_login, sender: nil)
-          })
-          
-        }
-      })
-      
-    } else {
-      
-      SwiftSpinner.showWithDuration(2, title: "Empty Field(s)", animated: false).addTapHandler({
+    guard let email = emailField.text where email != "" else {
+      SwiftSpinner.showWithDuration(2, title: "Empty Email", animated: false).addTapHandler({
         SwiftSpinner.hide()
-      }, subtitle: "You need a password and an email")
-      
+        }, subtitle: "You need to enter an email")
+      return
     }
+    
+    guard let pwd = passwordField.text where pwd != "" else {
+      SwiftSpinner.showWithDuration(2, title: "Empty Password", animated: false).addTapHandler({
+        SwiftSpinner.hide()
+        }, subtitle: "You need to enter a password")
+      return
+    }
+    
+    DataService.ds.ref_base.authUser(email, password: pwd, withCompletionBlock: { error, authData in
+      if error != nil {
+        guard error.code != status_account_nonexist else {
+          SwiftSpinner.showWithDuration(1, title: "This account doesn't exist", animated: false).addTapHandler({
+            SwiftSpinner.hide()
+            }, subtitle: "Please check your email or tap 'register'")
+          return
+        }
+        
+        guard let errorCode = FAuthenticationError(rawValue: error.code) else {
+          SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
+            SwiftSpinner.hide()
+            }, subtitle: "Check your internet connection")
+          return
+        }
+        
+        switch(errorCode) {
+        case .InvalidEmail:
+          SwiftSpinner.showWithDuration(1, title: "Your email is invalid", animated: false)
+        case .InvalidPassword:
+          SwiftSpinner.showWithDuration(1, title: "Wrong Password", animated: false)
+        default:
+          break
+        }
+      } else {
+        NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: key_uid)
+        
+        SwiftSpinner.hide({
+          self.performSegueWithIdentifier(segue_login, sender: nil)
+        })
+      }
+    })
   }
   
   @IBAction func attemptRegister(sender: AnyObject) {
     SwiftSpinner.showWithDuration(2, title: "Creating your account...")
     
-    if let email = emailField.text where email != "" {
-      if email == reenteremailField.text {
-        if let pwd = passwordField.text where pwd != "" {
-          if pwd == reenterPasswordField.text {
-            
-            DataService.ds.ref_base.authUser(email, password: pwd, withCompletionBlock: { error, authData in
-              
-              if error != nil {
-                if error.code == status_account_nonexist {
-                  
-                  DataService.ds.ref_base.createUser(email, password: pwd, withValueCompletionBlock: { error, result in
-                    
-                    if error != nil {
-                      
-                      SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
-                        SwiftSpinner.hide()
-                      }, subtitle: "Please try again later")
-                      
-                    } else {
-                      
-                      DataService.ds.ref_base.authUser(email, password: pwd, withCompletionBlock: { error, authData in
-                        
-                        let user = ["provider": authData.provider!, "email": email]
-                        
-                        DataService.ds.createFirebaseUser(authData.uid, user: user)
-                        
-                        NSUserDefaults.standardUserDefaults().setValue(result[key_uid], forKey: key_uid)
-                        
-                        self.performSegueWithIdentifier(segue_registered, sender: nil)
-                      })
-                    }
-                  })
-                  
-                } else if let errorCode = FAuthenticationError(rawValue: error.code) {
-                  
-                  switch(errorCode) {
-                  case .InvalidEmail:
-                    SwiftSpinner.showWithDuration(1, title: "Your email is invalid", animated: false)
-                  case .InvalidPassword:
-                    SwiftSpinner.showWithDuration(1, title: "Wrong Password", animated: false)
-                  default:
-                    break
-                  }
-                  
-                } else {
-                  
-                  SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
-                    SwiftSpinner.hide()
-                  }, subtitle: "Check your internet connection")
-                  
-                }
-              } else {
-                
-                SwiftSpinner.showWithDuration(1, title: "This account already exists", animated: false).addTapHandler({
-                  SwiftSpinner.hide()
-                }, subtitle: "Please login instead")
-                
-              }
-            })
-          } else {
-            
-            SwiftSpinner.showWithDuration(2, title: "Passwords don't match", animated: false).addTapHandler({
-              SwiftSpinner.hide()
-            }, subtitle: "Please check your password entry")
-            
-          }
-        } else {
-          
-          SwiftSpinner.showWithDuration(2, title: "Empty Password Field", animated: false).addTapHandler({
-            SwiftSpinner.hide()
-          }, subtitle: "You need to enter a password")
-          
-        }
-      } else {
-        
-        SwiftSpinner.showWithDuration(2, title: "Emails don't match", animated: false).addTapHandler({
-          SwiftSpinner.hide()
-        }, subtitle: "Please check your email entry")
-        
-      }
-    } else {
-      
+    guard let email = emailField.text where email != "" else {
       SwiftSpinner.showWithDuration(2, title: "Empty Email Field", animated: false).addTapHandler({
         SwiftSpinner.hide()
-      }, subtitle: "You need to enter an email")
-      
+        }, subtitle: "You need to enter an email")
+      return
     }
+    
+    guard let pwd = passwordField.text where pwd != "" else {
+      SwiftSpinner.showWithDuration(2, title: "Empty Password Field", animated: false).addTapHandler({
+        SwiftSpinner.hide()
+        }, subtitle: "You need to enter a password")
+      return
+    }
+    
+    guard email == reenteremailField.text else {
+      SwiftSpinner.showWithDuration(2, title: "Emails don't match", animated: false).addTapHandler({
+        SwiftSpinner.hide()
+        }, subtitle: "Please check your email entry")
+      return
+    }
+    
+    guard pwd == reenterPasswordField.text else {
+      SwiftSpinner.showWithDuration(2, title: "Passwords don't match", animated: false).addTapHandler({
+        SwiftSpinner.hide()
+        }, subtitle: "Please check your password entry")
+      return
+    }
+    
+    DataService.ds.ref_base.authUser(email, password: pwd, withCompletionBlock: { error, authData in
+      
+      if error != nil && error.code != status_account_nonexist {
+        if let errorCode = FAuthenticationError(rawValue: error.code) {
+          switch(errorCode) {
+          case .InvalidEmail:
+            SwiftSpinner.showWithDuration(1, title: "Your email is invalid", animated: false)
+          case .InvalidPassword:
+            SwiftSpinner.showWithDuration(1, title: "Wrong Password", animated: false)
+          default:
+            break
+          }
+        }
+        SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
+          SwiftSpinner.hide()
+          }, subtitle: "Check your internet connection")
+      } else if error == nil {
+        SwiftSpinner.showWithDuration(1, title: "This account already exists", animated: false).addTapHandler({
+          SwiftSpinner.hide()
+          }, subtitle: "Please login instead")
+      }
+      
+      guard error.code == status_account_nonexist else {
+        return
+      }
+      
+      DataService.ds.ref_base.createUser(email, password: pwd, withValueCompletionBlock: { error, result in
+        
+        guard error == nil else {
+          SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
+            SwiftSpinner.hide()
+            }, subtitle: "Please try again later")
+          return
+        }
+        
+        DataService.ds.ref_base.authUser(email, password: pwd, withCompletionBlock: { error, authData in
+          
+          let user = ["provider": authData.provider!, "email": email]
+          DataService.ds.createFirebaseUser(authData.uid, user: user)
+          NSUserDefaults.standardUserDefaults().setValue(result[key_uid], forKey: key_uid)
+          self.performSegueWithIdentifier(segue_registered, sender: nil)
+        })
+      })
+    })
   }
   
   @IBAction func backLogoPressed(sender: AnyObject) {
@@ -337,30 +313,26 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
     let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
     let okAction = UIAlertAction(title: "OK", style: .Default, handler: { action in
       
-      if let email = emailInput!.text where email != "" {
-        DataService.ds.ref_base.resetPasswordForUser(email, withCompletionBlock: { error in
-          
-          if error != nil {
-            
-            SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
-              SwiftSpinner.hide()
-            }, subtitle: "We were not able to reset your password")
-            
-          } else {
-            
-            SwiftSpinner.showWithDuration(2, title: "Password was reset", animated: false).addTapHandler({
-              SwiftSpinner.hide()
-            }, subtitle: "Check your inbox")
-            
-          }
-        })
-      } else {
-        
+      guard let email = emailInput!.text where email != "" else {
         SwiftSpinner.showWithDuration(2, title: "Missing Email", animated: false).addTapHandler({
           SwiftSpinner.hide()
-        }, subtitle: "You need to enter your email")
-        
+          }, subtitle: "You need to enter your email")
+        return
       }
+      
+      DataService.ds.ref_base.resetPasswordForUser(email, withCompletionBlock: { error in
+        
+        guard error == nil else {
+          SwiftSpinner.showWithDuration(2, title: "There was an error", animated: false).addTapHandler({
+            SwiftSpinner.hide()
+            }, subtitle: "We were not able to reset your password")
+          return
+        }
+        
+        SwiftSpinner.showWithDuration(2, title: "Password was reset", animated: false).addTapHandler({
+          SwiftSpinner.hide()
+          }, subtitle: "Check your inbox")
+      })
     })
     
     textEntryPrompt.addAction(cancelAction)
@@ -393,8 +365,9 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
     registerOption.layer.addSublayer(borderRegister)
     registerOption.layer.masksToBounds = true
     
-    if loginOption.layer.superlayer != nil {
+    guard loginOption.layer.superlayer == nil else {
       borderLogin.removeFromSuperlayer()
+      return
     }
     
     contentViewHeight.constant = 500
@@ -418,9 +391,10 @@ class LoginVC: UIViewController, MFMailComposeViewControllerDelegate {
     borderLogin.borderWidth = width
     loginOption.layer.addSublayer(borderLogin)
     loginOption.layer.masksToBounds = true
-    
-    if registerOption.layer.superlayer != nil {
+  
+    guard registerOption.layer.superlayer == nil else {
       borderRegister.removeFromSuperlayer()
+      return
     }
     
     contentViewHeight.constant = 400

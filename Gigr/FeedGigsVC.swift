@@ -22,15 +22,15 @@ extension UINavigationBar {
 
 extension FeedGigsVC: FilterVCDelegate {
   func saveFilters(sender: FilterVC, city: String, category: String) {
-    if city != "" {
-      self.selectedCity = city
+    guard city != "" && category != "" else {
+      return
     }
-    if category != "" {
-      self.pickedCategory = category
-    }
+    
+    self.selectedCity = city
+    self.pickedCategory = category
     populateGHTable(city, category: category)
     populateGigsTable(city, category: category)
-
+    
     self.tableViewGigs.reloadData()
     self.tableViewGigHunters.reloadData()
   }
@@ -94,8 +94,8 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     tableViewGigs.showsVerticalScrollIndicator = false
     tableViewGigHunters.showsVerticalScrollIndicator = false
     
-//    segmentedControl.layer.borderColor = UIColor.lightGrayColor().CGColor
-//    segmentedControl.layer.borderWidth = 1.5
+    segmentedControl.layer.borderColor = UIColor.lightGrayColor().CGColor
+    segmentedControl.layer.borderWidth = 1.5
 
     let attributes = [
       NSFontAttributeName: UIFont(name: "LemonMilk", size: 25)!,
@@ -120,15 +120,18 @@ class FeedGigsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     let pickedCategory = NSUserDefaults.standardUserDefaults().objectForKey("category") as? String
     let selectedCity = NSUserDefaults.standardUserDefaults().objectForKey("location") as? String
     
-    if let pickedCategory = pickedCategory {
-      self.pickedCategory = pickedCategory
+    guard let category = pickedCategory,
+      let city = selectedCity
+      else {
+        self.selectedCity = "Montreal, QC, Canada"
+        self.pickedCategory = "Show All Categories"
+      return
     }
     
-    if let selectedCity = selectedCity {
-      self.selectedCity = selectedCity
-    }
+    self.pickedCategory = category
+    self.selectedCity = city
     
-    if let location = selectedCity, let category = self.pickedCategory {
+    if let location = self.selectedCity, let category = self.pickedCategory {
       populateGigsTable(location, category: category)
       populateGHTable(location, category: category)
     }

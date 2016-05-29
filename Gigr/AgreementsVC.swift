@@ -25,7 +25,6 @@ class AgreementsVC: UIViewController, UITextViewDelegate {
   
   /** IB ACTIONS **/
   @IBAction func segmentSelected(sender: AnyObject) {
-    
     switch segmentedControl.selectedSegmentIndex {
     case 0:
       privacyTV.hidden = true
@@ -37,7 +36,6 @@ class AgreementsVC: UIViewController, UITextViewDelegate {
       print("This shouldn't happen")
       break
     }
-
   }
   
   @IBAction func dismissBtnPressed(sender: AnyObject) {
