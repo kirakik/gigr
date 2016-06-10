@@ -11,7 +11,7 @@ pod 'FBSDKLoginKit'
 pod 'IQKeyboardManagerSwift'
 pod 'pop', '~> 1.0'
 pod 'DZNEmptyDataSet'
-pod 'BWWalkthrough'
+pod 'EZSwiftExtensions'
 pod "SwiftSpinner"
 
 end

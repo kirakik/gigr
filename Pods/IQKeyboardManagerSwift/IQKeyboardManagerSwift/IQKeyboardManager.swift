@@ -760,7 +760,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         
         let textFieldView = _textFieldView!
 
-        _IQShowLog("****** \(#function) %@ started ******")
+        _IQShowLog("****** \(__FUNCTION__) %@ started ******")
 
         //  Boolean to know keyboard is showing/hiding
         _keyboardManagerFlags.isKeyboardShowing = true
@@ -1127,7 +1127,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
 
-        _IQShowLog("****** \(#function) ended ******")
+        _IQShowLog("****** \(__FUNCTION__) ended ******")
     }
     
     ///-------------------------------
@@ -1143,7 +1143,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             return
         }
         
-        _IQShowLog("****** \(#function) started ******")
+        _IQShowLog("****** \(__FUNCTION__) started ******")
 
         //Due to orientation callback we need to resave it's original frame.    //  (Bug ID: #46)
         //Added _isTextFieldViewFrameChanged check. Saving textFieldView current frame to use it with canAdjustTextView if textViewFrame has already not been changed. (Bug ID: #92)
@@ -1240,7 +1240,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
         
-        _IQShowLog("****** \(#function) ended ******")
+        _IQShowLog("****** \(__FUNCTION__) ended ******")
     }
     
     /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
@@ -1256,7 +1256,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             return
         }
         
-        _IQShowLog("****** \(#function) started ******")
+        _IQShowLog("****** \(__FUNCTION__) started ******")
 
         //Commented due to #56. Added all the conditions below to handle UIWebView's textFields.    (Bug ID: #56)
         //  We are unable to get textField object while keyboard showing on UIWebView's textField.  (Bug ID: #11)
@@ -1375,16 +1375,16 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _startingContentOffset = CGPointZero
         //    topViewBeginRect = CGRectZero    //Commented due to #82
 
-        _IQShowLog("****** \(#function) ended ******")
+        _IQShowLog("****** \(__FUNCTION__) ended ******")
     }
 
     internal func keyboardDidHide(notification:NSNotification) {
 
-        _IQShowLog("****** \(#function) started ******")
+        _IQShowLog("****** \(__FUNCTION__) started ******")
         
         _topViewBeginRect = CGRectZero
 
-        _IQShowLog("****** \(#function) ended ******")
+        _IQShowLog("****** \(__FUNCTION__) ended ******")
     }
     
     ///-------------------------------------------
@@ -1394,7 +1394,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
     internal func textFieldViewDidBeginEditing(notification:NSNotification) {
 
-        _IQShowLog("****** \(#function) started ******")
+        _IQShowLog("****** \(__FUNCTION__) started ******")
 
         //  Getting object
         _textFieldView = notification.object as? UIView
@@ -1461,7 +1461,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         }
 
         if enable == false {
-            _IQShowLog("****** \(#function) ended ******")
+            _IQShowLog("****** \(__FUNCTION__) ended ******")
             return
         }
         
@@ -1515,13 +1515,13 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
 
-        _IQShowLog("****** \(#function) ended ******")
+        _IQShowLog("****** \(__FUNCTION__) ended ******")
     }
     
     /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
     internal func textFieldViewDidEndEditing(notification:NSNotification) {
         
-        _IQShowLog("****** \(#function) started ******")
+        _IQShowLog("****** \(__FUNCTION__) started ******")
 
         //Removing gesture recognizer   (Enhancement ID: #14)
         _textFieldView?.window?.removeGestureRecognizer(_tapGesture)
@@ -1540,7 +1540,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         //Setting object to nil
         _textFieldView = nil
 
-        _IQShowLog("****** \(#function) ended ******")
+        _IQShowLog("****** \(__FUNCTION__) ended ******")
     }
 
     /** UITextViewTextDidChangeNotificationBug,  fix for iOS 7.0.x - http://stackoverflow.com/questions/18966675/uitextview-in-ios7-clips-the-last-line-of-text-string */
@@ -1575,7 +1575,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**  UIApplicationWillChangeStatusBarOrientationNotification. Need to set the textView to it's original position. If any frame changes made. (Bug ID: #92)*/
     internal func willChangeStatusBarOrientation(notification:NSNotification) {
         
-        _IQShowLog("****** \(#function) started ******")
+        _IQShowLog("****** \(__FUNCTION__) started ******")
         
         //If textFieldViewInitialRect is saved then restore it.(UITextView case @canAdjustTextView)
         if _keyboardManagerFlags.isTextFieldViewFrameChanged == true {
@@ -1593,7 +1593,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
             }
         }
 
-        _IQShowLog("****** \(#function) ended ******")
+        _IQShowLog("****** \(__FUNCTION__) ended ******")
     }
     
     ///------------------
